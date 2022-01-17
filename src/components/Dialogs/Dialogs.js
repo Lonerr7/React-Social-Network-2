@@ -1,17 +1,19 @@
+import DialogItem from './DialogItem/DialogItem';
 import s from './Dialogs.module.scss';
+import Message from './Message/Message';
 
 const Dialogs = () => {
   return (
     <div className={s.dialogs}>
       <div className={s.dialogs__items}>
-        <div className={s.dialogs__item}>Vanya:</div>
-        <div className={s.dialogs__item}>Ilya:</div>
-        <div className={s.dialogs__item}>Vadim:</div>
+        <DialogItem name="Vanya" id={1} />
+        <DialogItem name="Ilya" id={1} />
+        <DialogItem name="Vadim" id={1} />
       </div>
       <div className={s.dialogs__messages}>
-        <div className={s.dialogs__message}>Hi</div>
-        <div className={s.dialogs__message}>Hello</div>
-        <div className={s.dialogs__message}>What is up</div>
+        <Message message="Hi" />
+        <Message message="Hello" />
+        <Message message="What is up" />
       </div>
     </div>
   );
