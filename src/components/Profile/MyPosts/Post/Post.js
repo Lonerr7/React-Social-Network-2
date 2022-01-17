@@ -1,6 +1,6 @@
 import s from './Post.module.scss';
 
-const Post = ({message, likesCount}) => {
+const Post = ({postMessage, likesCount}) => {
   return (
     <div className={s.post}>
       <img
@@ -8,7 +8,7 @@ const Post = ({message, likesCount}) => {
         src="https://innostudio.de/fileuploader/images/default-avatar.png"
         alt="avatar"
       />
-      {message}
+      {postMessage}
       <p>Likes count: {likesCount}</p>
       <p>like</p>
     </div>
