@@ -1,4 +1,5 @@
 import './App.scss';
+import Dialogs from './components/Dialogs/Dialogs';
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -9,7 +10,8 @@ function App() {
       <Header />
       <Sidebar />
       <div className="app-wrapper__content">
-        <Profile />
+        {/* <Profile /> */}
+        <Dialogs />
       </div>
     </div>
   );

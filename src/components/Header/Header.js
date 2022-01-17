@@ -1,12 +1,14 @@
 import s from './Header.module.scss';
-import logo from '../../images/logo.png'
+import logo from '../../images/logo.png';
 
 const Header = () => {
   return (
     <header className={s.header}>
-      <img className={s.logo} src={logo} alt="logo" />
+      <a href="#">
+        <img className={s.logo} src={logo} alt="logo" />
+      </a>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

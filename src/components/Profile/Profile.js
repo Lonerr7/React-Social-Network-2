@@ -3,7 +3,7 @@ import s from './Profile.module.scss';
 
 const Profile = () => {
   return (
-    <div>
+    <div className={s.profile}>
       <div className={s.profilePictureBox}>
         <img
           className={s.profilePicture}
