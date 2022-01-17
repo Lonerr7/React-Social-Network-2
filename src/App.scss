@@ -1,0 +1,18 @@
+.app-wrapper {
+  font-size: 18px;
+  width: 75%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-areas:
+    'h h'
+    'n c';
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
+  gap: 20px;   
+
+  &__content {
+    border-radius: 15px;
+    grid-area: c;
+    background-color: bisque;
+  }
+}
