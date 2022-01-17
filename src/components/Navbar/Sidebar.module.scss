@@ -4,11 +4,11 @@
   background-color: rgb(154, 101, 223);
   padding: 20px;
 
-  // &__link {
-  //   font-weight: 500;
-  // }
-
   &__listItem {
     margin-bottom: 3px;   
   }
+}
+
+.activeLink {
+  font-weight: 500;
 }
