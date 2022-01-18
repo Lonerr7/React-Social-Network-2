@@ -2,7 +2,7 @@ import React from 'react';
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
 
-const MyPosts = ({ posts }) => {
+const MyPosts = ({ posts, addPost }) => {
   const postElements = posts.map((p) => (
     <Post postMessage={p.postMessage} id={p.id} key={p.id} />
   ));
@@ -10,7 +10,7 @@ const MyPosts = ({ posts }) => {
   const newPostElement = React.createRef();
 
   const onAddPost = () => {
-    alert(newPostElement.current.value);
+    addPost(newPostElement.current.value);
   };
 
   return (

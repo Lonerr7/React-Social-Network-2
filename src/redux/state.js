@@ -1,8 +1,8 @@
 const state = {
   profilePage: {
     posts: [
-      { id: 1, postMessage: 'Hi, how are u' },
-      { id: 2, postMessage: "It's my first post" },
+      { id: 1, postMessage: 'Hi, how are u', likesCount: 10 },
+      { id: 2, postMessage: "It's my first post", likesCount: 10 },
     ],
   },
 
@@ -40,5 +40,17 @@ const state = {
     ],
   },
 };
+
+export const addPost = (newPostText) => {
+  const newPost = {
+    id: 3,
+    postMessage: newPostText,
+    likesCount: 0,
+  };
+
+  state.profilePage.posts.push(newPost);
+};
+
+window._state = state;
 
 export default state;
