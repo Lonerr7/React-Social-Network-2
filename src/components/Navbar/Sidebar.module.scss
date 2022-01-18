@@ -4,11 +4,20 @@
   background-color: rgb(154, 101, 223);
   padding: 20px;
 
-  &__listItem {
-    margin-bottom: 3px;   
+  &__nav {
+    margin-bottom: 30px;
   }
+
+  &__listItem {
+    margin-bottom: 3px;
+  }
+}
+
+.link {
+  display: inline-block;
 }
 
 .activeLink {
   font-weight: 500;
+  display: inline-block;
 }
