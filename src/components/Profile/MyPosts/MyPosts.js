@@ -2,10 +2,14 @@ import s from './MyPosts.module.scss';
 import Post from './Post/Post';
 
 const MyPosts = () => {
-  const postData = [
+  const posts = [
     { id: 1, postMessage: 'Hi, how are u' },
     { id: 2, postMessage: "It's my first post" },
   ];
+
+  const postElements = posts.map((p) => (
+    <Post postMessage={p.postMessage} id={p.id} key={p.id} />
+  ));
 
   return (
     <div className={s.myPosts}>
@@ -16,10 +20,7 @@ const MyPosts = () => {
           <button>New post</button>
         </div>
       </div>
-      <div className={s.posts}>
-        <Post postMessage={postData[0].postMessage} likesCount={10} />
-        <Post postMessage={postData[1].postMessage} likesCount={15} />
-      </div>
+      <div className={s.posts}>{postElements}</div>
     </div>
   );
 };
