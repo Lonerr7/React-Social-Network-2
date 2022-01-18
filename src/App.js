@@ -8,7 +8,7 @@ import Music from './components/Music/Music';
 import News from './components/News/News';
 import Settings from './components/Settings/Settings';
 
-const App = ({ state, addPost }) => {
+const App = ({ state, addPost, updateNewPostText }) => {
   return (
     <BrowserRouter>
       <div className="app-wrapper">
@@ -18,7 +18,7 @@ const App = ({ state, addPost }) => {
           <Routes>
             <Route
               path="/profile/*"
-              element={<Profile profilePage={state.profilePage} addPost={addPost} />}
+              element={<Profile profilePage={state.profilePage} addPost={addPost} updateNewPostText={updateNewPostText} />}
             />
             <Route
               path="/messages/*"
