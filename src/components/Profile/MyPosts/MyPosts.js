@@ -11,6 +11,7 @@ const MyPosts = ({ posts, addPost }) => {
 
   const onAddPost = () => {
     addPost(newPostElement.current.value);
+    newPostElement.current.value = '';
   };
 
   return (
