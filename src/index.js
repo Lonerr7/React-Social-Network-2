@@ -5,9 +5,26 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const dialogs = [
+  { id: 1, name: 'Vanya' },
+  { id: 2, name: 'Ilya' },
+  { id: 3, name: 'Vadim' },
+];
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+const messages = [
+  { id: 1, message: 'Hi' },
+  { id: 2, message: 'Hello' },
+  { id: 3, message: 'What is up' },
+];
+
+const posts = [
+  { id: 1, postMessage: 'Hi, how are u' },
+  { id: 2, postMessage: "It's my first post" },
+];
+
+ReactDOM.render(
+  <App dialogs={dialogs} messages={messages} posts={posts} />,
+  document.getElementById('root')
+);
+
 reportWebVitals();

@@ -1,12 +1,7 @@
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
 
-const MyPosts = () => {
-  const posts = [
-    { id: 1, postMessage: 'Hi, how are u' },
-    { id: 2, postMessage: "It's my first post" },
-  ];
-
+const MyPosts = ({ posts }) => {
   const postElements = posts.map((p) => (
     <Post postMessage={p.postMessage} id={p.id} key={p.id} />
   ));
