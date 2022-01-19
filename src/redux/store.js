@@ -1,5 +1,7 @@
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+const ADD_MESSAGE = 'ADD_MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
 
 const store = {
   _state: {
@@ -23,6 +25,7 @@ const store = {
         { id: 2, message: 'Hello' },
         { id: 3, message: 'What is up' },
       ],
+      newMessageText: '',
     },
 
     sidebar: {
@@ -72,6 +75,20 @@ const store = {
         this._state.profilePage.newPostText = action.newText;
         this._callSubscriber(this._state);
         break;
+      case ADD_MESSAGE:
+        const newMessage = {
+          id: 4,
+          message: action.newMessage,
+        };
+
+        this._state.dialogsPage.messages.push(newMessage);
+        this._state.dialogsPage.newMessageText = '';
+        this._callSubscriber(this._state);
+        break;
+      case UPDATE_NEW_MESSAGE_TEXT:
+        this._state.dialogsPage.newMessageText = action.newMessage;
+        this._callSubscriber(this._state);
+        break;
       default:
         break;
     }
@@ -89,6 +106,16 @@ export const addPostAC = () => ({
 export const updateNewPostTextAC = (newText) => ({
   type: UPDATE_NEW_POST_TEXT,
   newText,
+});
+
+export const addMessageAC = (newMessage) => ({
+  type: ADD_MESSAGE,
+  newMessage,
+});
+
+export const updateNewMessageTextAC = (newMessage) => ({
+  type: UPDATE_NEW_MESSAGE_TEXT,
+  newMessage,
 });
 
 window.store = store;
