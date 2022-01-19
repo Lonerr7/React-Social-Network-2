@@ -1,4 +1,5 @@
 import React from 'react';
+import { addPostAC, updateNewPostTextAC } from '../../../redux/store';
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
 
@@ -8,12 +9,11 @@ const MyPosts = ({ posts, dispatch, newPostText }) => {
   ));
 
   const onPostChange = (e) => {
-    dispatch({ type: 'UPDATE_NEW_POST_TEXT', newText: e.target.value });
-    console.log(e.target.value);
+    dispatch(updateNewPostTextAC(e.target.value));
   };
 
   const onAddPost = (e) => {
-    dispatch({type: 'ADD_POST'});
+    dispatch(addPostAC());
   };
 
   return (
