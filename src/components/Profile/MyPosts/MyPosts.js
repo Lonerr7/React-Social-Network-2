@@ -2,18 +2,18 @@ import React from 'react';
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
 
-const MyPosts = ({ posts, addPost, newPostText, updateNewPostText }) => {
+const MyPosts = ({ posts, dispatch, newPostText }) => {
   const postElements = posts.map((p) => (
     <Post postMessage={p.postMessage} id={p.id} key={p.id} />
-  )); 
+  ));
 
   const onPostChange = (e) => {
-    updateNewPostText(e.target.value);
+    dispatch({ type: 'UPDATE_NEW_POST_TEXT', newText: e.target.value });
     console.log(e.target.value);
   };
 
   const onAddPost = (e) => {
-    addPost();
+    dispatch({type: 'ADD_POST'});
   };
 
   return (
