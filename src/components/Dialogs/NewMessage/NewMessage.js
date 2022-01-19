@@ -1,4 +1,4 @@
-import { addMessageAC, updateNewMessageTextAC } from '../../../redux/store';
+import { addMessageAC, updateNewMessageTextAC } from '../../../redux/dialogsReducer';
 import s from './NewMessage.module.scss';
 
 const NewMessage = ({ newMessageText, dispatch }) => {
@@ -8,10 +8,10 @@ const NewMessage = ({ newMessageText, dispatch }) => {
 
   const onAddMessage = () => {
     // We don't need to pass newMessageText if we tweak something in dispatch for addMessage
-    dispatch(addMessageAC(newMessageText));
+    dispatch(addMessageAC());
   };
 
-  return (
+  return ( 
     <div className={s.NewMessage}>
       <div>
         <textarea
