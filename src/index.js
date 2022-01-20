@@ -7,13 +7,13 @@ import './reset.scss';
 import './index.scss';
 import App from './App';
 import store from './redux/redux-store';
-import StoreContext from './StoreContext';
+import { Provider } from 'react-redux';
 
 const renderEntireTree = (state) => {
   ReactDOM.render(
-    <StoreContext.Provider value={store}>
+    <Provider store={store}>
       <App state={state} store={store} />
-    </StoreContext.Provider>,
+    </Provider>,
     document.getElementById('root')
   );
 };
