@@ -1,11 +1,9 @@
 import DialogItem from './DialogItem/DialogItem';
 import s from './Dialogs.module.scss';
 import Message from './Message/Message';
-import NewMessageContainer from './NewMessage/NewMessageContainer';
+import NewMessage from './NewMessage/NewMessage';
 
-const Dialogs = ({ store }) => {
-  const dialogsPage = store.getState().dialogsPage;
-
+const Dialogs = ({ updateNewMessageText, sendMessage, dialogsPage }) => {
   const dialogsElements = dialogsPage.dialogs.map((d) => (
     <DialogItem key={d.id} name={d.name} id={d.id} />
   ));
@@ -18,7 +16,11 @@ const Dialogs = ({ store }) => {
     <div className={s.dialogs}>
       <div className={s.dialogs__items}>{dialogsElements}</div>
       <div className={s.dialogs__messages}>{messagesElements}</div>
-      <NewMessageContainer store={store} />
+      <NewMessage
+        updateNewMessageText={updateNewMessageText}
+        sendMessage={sendMessage}
+        newMessageText={dialogsPage.newMessageText}
+      />
     </div>
   );
 };
