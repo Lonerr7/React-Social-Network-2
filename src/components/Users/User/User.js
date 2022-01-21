@@ -12,10 +12,18 @@ const User = ({
   return (
     <div className={s.user}>
       <div>
-        <img className={s.user__avatar_big} src={photos.large} alt="avatar" />
+        <img
+          className={s.user__avatar_big}
+          src={
+            !photos.small
+              ? 'https://innostudio.de/fileuploader/images/default-avatar.png'
+              : photos.small
+          }
+          alt="avatar"
+        />
       </div>
       <p>{name}</p>
-      <p>{status}</p>
+      <p>{status ? status : '------'}</p>
       {followed ? (
         <button
           onClick={() => {
