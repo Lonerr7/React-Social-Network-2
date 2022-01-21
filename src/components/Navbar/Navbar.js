@@ -20,6 +20,11 @@ const Navbar = ({sidebar}) => {
             </NavLink>
           </li>
           <li className={s.navbar__listItem}>
+            <NavLink className={setActive} to="/users">
+              Users
+            </NavLink>
+          </li>
+          <li className={s.navbar__listItem}>
             <NavLink className={setActive} to="/news">
               News
             </NavLink>
