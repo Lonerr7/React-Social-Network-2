@@ -1,16 +1,32 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { usersAPI } from '../../api/api';
-import { followAC, setUsersAC, unfollowAC } from '../../redux/usersReducer';
+import {
+  followAC,
+  setCurrentPageAC,
+  setTotalUsersCountAC,
+  setUsersAC,
+  unfollowAC,
+} from '../../redux/usersReducer';
 import Users from './Users';
 import s from './Users.module.scss';
 
-const UsersContainer = ({ users, setUsers, followUser, unfollowUser }) => {
-   useEffect(() => {
+const UsersContainer = ({
+  users,
+  setUsers,
+  followUser,
+  unfollowUser,
+  pageLength,
+  currentPage,
+  totalUsersCount,
+  setUsersCount,
+  setCurrentPage,
+}) => {
+  useEffect(() => {
     (async () => {
-      const response = await usersAPI.getUsers();
-      console.log(response.data.items[0]);
+      const response = await usersAPI.getUsers(currentPage, pageLength);
       setUsers(response.data.items);
+      setUsersCount(response.data.totalCount);
     })();
   }, []);
 
@@ -22,12 +38,22 @@ const UsersContainer = ({ users, setUsers, followUser, unfollowUser }) => {
     unfollowUser(id);
   };
 
+  const onPageChanged = async (page) => {
+    const response = await usersAPI.getUsers(page, pageLength);
+    setUsers(response.data.items);
+    setCurrentPage(page);
+  };
+
   return (
     <div className={s.usersWrapper}>
       <Users
         users={users}
         onFollowClick={onFollowClick}
         onUnfollowClick={onUnfollowClick}
+        pageLength={pageLength}
+        currentPage={currentPage}
+        totalUsersCount={totalUsersCount}
+        onPageChanged={onPageChanged}
       />
     </div>
   );
@@ -35,6 +61,9 @@ const UsersContainer = ({ users, setUsers, followUser, unfollowUser }) => {
 
 const mapStateToProps = (state) => ({
   users: state.usersPage.users,
+  currentPage: state.usersPage.currentPage,
+  totalUsersCount: state.usersPage.totalUsersCount,
+  pageLength: state.usersPage.pageLength,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -46,6 +75,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   unfollowUser: (userId) => {
     dispatch(unfollowAC(userId));
+  },
+  setUsersCount: (usersCount) => {
+    dispatch(setTotalUsersCountAC(usersCount));
+  },
+  setCurrentPage: (currentPage) => {
+    dispatch(setCurrentPageAC(currentPage));
   },
 });
 

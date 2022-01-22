@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
 
@@ -7,22 +7,23 @@ const MyPosts = ({ updateNewPostText, addPost, profilePage }) => {
     <Post postMessage={p.postMessage} id={p.id} key={p.id} />
   ));
 
+  const [postText, setpostText] = useState('');
+
   const onPostChange = (e) => {
-    updateNewPostText(e.target.value);
+    // updateNewPostText(e.target.value);
+    setpostText(e.target.value);
   };
 
-  const onAddPost = (e) => {
-    addPost();
+  const onAddPost = () => {
+    addPost(postText);
+    setpostText('');
   };
 
   return (
     <div className={s.myPosts}>
       MyPosts
       <div className={s.newPostBox}>
-        <textarea
-          onChange={onPostChange}
-          value={profilePage.newPostText}
-        ></textarea>
+        <textarea onChange={onPostChange} value={postText}></textarea>
         <div>
           <button onClick={onAddPost}>New post</button>
         </div>

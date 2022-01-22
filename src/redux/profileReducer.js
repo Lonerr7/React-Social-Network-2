@@ -14,7 +14,7 @@ const profileReducer = (state = initialState, action) => {
     case ADD_POST:
       const newPost = {
         id: 3,
-        postMessage: state.newPostText,
+        postMessage: action.newPost,
         likesCount: 0,
       };
 
@@ -33,8 +33,9 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
-export const addPostAC = () => ({
+export const addPostAC = (newPost) => ({
   type: ADD_POST,
+  newPost,
 });
 
 export const updateNewPostTextAC = (newText) => ({

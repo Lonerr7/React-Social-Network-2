@@ -1,7 +1,9 @@
 import * as axios from 'axios';
 
 export const usersAPI = {
-  getUsers() {
-    return axios.get(`https://social-network.samuraijs.com/api/1.0/users`);
+  getUsers(currentPage, pageLegth) {
+    return axios.get(
+      `https://social-network.samuraijs.com/api/1.0/users?count=${pageLegth}&page=${currentPage}`
+    );
   },
 };
