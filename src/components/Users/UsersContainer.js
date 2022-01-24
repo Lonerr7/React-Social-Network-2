@@ -6,8 +6,10 @@ import {
   setCurrentPageAC,
   setTotalUsersCountAC,
   setUsersAC,
+  toggleFetchingAC,
   unfollowAC,
 } from '../../redux/usersReducer';
+import Preloader from '../common/Preloader/Preloader';
 import Users from './Users';
 import s from './Users.module.scss';
 
@@ -21,14 +23,22 @@ const UsersContainer = ({
   totalUsersCount,
   setUsersCount,
   setCurrentPage,
+  isFetching,
+  setIsFetching,
 }) => {
   useEffect(() => {
     (async () => {
+      toggleIsFetching(true);
       const response = await usersAPI.getUsers(currentPage, pageLength);
+      toggleIsFetching(false);
       setUsers(response.data.items);
       setUsersCount(response.data.totalCount);
     })();
   }, []);
+
+  const toggleIsFetching = (isFetching) => {
+    setIsFetching(isFetching);
+  };
 
   const onFollowClick = (id) => {
     followUser(id);
@@ -39,13 +49,16 @@ const UsersContainer = ({
   };
 
   const onPageChanged = async (page) => {
+    toggleIsFetching(true);
     const response = await usersAPI.getUsers(page, pageLength);
+    toggleIsFetching(false);
     setUsers(response.data.items);
     setCurrentPage(page);
   };
 
   return (
     <div className={s.usersWrapper}>
+      {isFetching ? <Preloader /> : null}
       <Users
         users={users}
         onFollowClick={onFollowClick}
@@ -54,6 +67,8 @@ const UsersContainer = ({
         currentPage={currentPage}
         totalUsersCount={totalUsersCount}
         onPageChanged={onPageChanged}
+        isFetching={isFetching}
+        // toggleIsFetching={toggleIsFetching}
       />
     </div>
   );
@@ -64,6 +79,7 @@ const mapStateToProps = (state) => ({
   currentPage: state.usersPage.currentPage,
   totalUsersCount: state.usersPage.totalUsersCount,
   pageLength: state.usersPage.pageLength,
+  isFetching: state.usersPage.isFetching,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -81,6 +97,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setCurrentPage: (currentPage) => {
     dispatch(setCurrentPageAC(currentPage));
+  },
+  setIsFetching: (isFetching) => {
+    dispatch(toggleFetchingAC(isFetching));
   },
 });
 
