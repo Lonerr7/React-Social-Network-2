@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import s from '../Users.module.scss';
 
 const User = ({
@@ -12,15 +13,17 @@ const User = ({
   return (
     <div className={s.user}>
       <div>
-        <img
-          className={s.user__avatar_big}
-          src={
-            !photos.small
-              ? 'https://innostudio.de/fileuploader/images/default-avatar.png'
-              : photos.small
-          }
-          alt="avatar"
-        />
+        <NavLink to={`/profile/${id}`}>
+          <img
+            className={s.user__avatar_big}
+            src={
+              !photos.large
+                ? 'https://innostudio.de/fileuploader/images/default-avatar.png'
+                : photos.large
+            }
+            alt="avatar"
+          />
+        </NavLink>
       </div>
       <p>{name}</p>
       <p>{status ? status : '------'}</p>

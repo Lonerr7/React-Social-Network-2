@@ -7,3 +7,11 @@ export const usersAPI = {
     );
   },
 };
+
+export const profileAPI = {
+  getUserProfile(userId) {
+    return axios.get(
+      `https://social-network.samuraijs.com/api/1.0/profile/${userId}`
+    );
+  },
+};

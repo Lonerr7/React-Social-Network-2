@@ -1,8 +1,52 @@
+.profilePictureBox {
+  margin-bottom: 20px;
+}
+
 .profilePicture {
   width: 100%;
   border-radius: 15px;
 }
 
-.profileInfo__description {
+.profileInfo__descriptionBox {
   padding: 20px;
+  width: 30%;
+}
+
+.profileInfo__description {
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid black;
+}
+
+.avatarBox {
+  margin-bottom: 30px;
+}
+
+.avatar {
+  width: 100%;
+}
+
+.jobStatusImg {
+  width: 50px;
+}
+
+.lookingForAJobContanier,
+.lookingForAJobDescrContanier {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.nameStatusContainer {
+  text-align: center;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.name,
+.status {
+  margin-bottom: 15px;
 }
