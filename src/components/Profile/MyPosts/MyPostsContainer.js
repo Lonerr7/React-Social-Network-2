@@ -6,16 +6,11 @@ const mapStateToProps = (state) => ({
   profilePage: state.profilePage,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  updateNewPostText: (newText) => {
-    dispatch(updateNewPostTextAC(newText));
-  },
+const dispatchToProps = {
+  updateNewPostText: updateNewPostTextAC,
+  addPost: addPostAC,
+};
 
-  addPost: (newPost) => {
-    dispatch(addPostAC(newPost));
-  },
-});
-
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+const MyPostsContainer = connect(mapStateToProps, dispatchToProps)(MyPosts);
 
 export default MyPostsContainer;

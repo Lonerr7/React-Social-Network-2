@@ -68,7 +68,6 @@ const UsersContainer = ({
         totalUsersCount={totalUsersCount}
         onPageChanged={onPageChanged}
         isFetching={isFetching}
-        // toggleIsFetching={toggleIsFetching}
       />
     </div>
   );
@@ -82,25 +81,13 @@ const mapStateToProps = (state) => ({
   isFetching: state.usersPage.isFetching,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setUsers: (users) => {
-    dispatch(setUsersAC(users));
-  },
-  followUser: (userId) => {
-    dispatch(followAC(userId));
-  },
-  unfollowUser: (userId) => {
-    dispatch(unfollowAC(userId));
-  },
-  setUsersCount: (usersCount) => {
-    dispatch(setTotalUsersCountAC(usersCount));
-  },
-  setCurrentPage: (currentPage) => {
-    dispatch(setCurrentPageAC(currentPage));
-  },
-  setIsFetching: (isFetching) => {
-    dispatch(toggleFetchingAC(isFetching));
-  },
-});
+const dispatchToProps = {
+  setUsers: setUsersAC,
+  followUser: followAC,
+  unfollowUser: unfollowAC,
+  setUsersCount: setTotalUsersCountAC,
+  setCurrentPage: setCurrentPageAC,
+  setIsFetching: toggleFetchingAC,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, dispatchToProps)(UsersContainer);
