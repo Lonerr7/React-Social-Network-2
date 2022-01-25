@@ -40,12 +40,24 @@ const UsersContainer = ({
     setIsFetching(isFetching);
   };
 
-  const onFollowClick = (id) => {
-    followUser(id);
+  const onFollowClick = async (id) => {
+    try {
+      const response = await usersAPI.followUser(id);
+      console.log(response);
+      if (response.data.resultCode === 0) followUser(id);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const onUnfollowClick = (id) => {
-    unfollowUser(id);
+  const onUnfollowClick = async (id) => {
+    try {
+      const response = await usersAPI.unfollowUser(id);
+      console.log(response);
+      if (response.data.resultCode === 0) unfollowUser(id);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const onPageChanged = async (page) => {
