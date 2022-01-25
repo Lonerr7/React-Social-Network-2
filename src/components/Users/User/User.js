@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import s from '../Users.module.scss';
+import defAvatar from '../../../images/default-avatar.png';
 
 const User = ({
   id,
@@ -18,7 +19,7 @@ const User = ({
             className={s.user__avatar_big}
             src={
               !photos.large
-                ? 'https://innostudio.de/fileuploader/images/default-avatar.png'
+                ? defAvatar
                 : photos.large
             }
             alt="avatar"

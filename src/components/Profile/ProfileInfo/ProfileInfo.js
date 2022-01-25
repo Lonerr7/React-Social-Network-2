@@ -2,6 +2,7 @@ import s from './ProfileInfo.module.scss';
 import Preloader from '../../common/Preloader/Preloader';
 import tick from '../../../images/tick.png';
 import cross from '../../../images/cross.png';
+import defAvatar from '../../../images/default-avatar.png';
 
 const ProfileInfo = (props) => {
   const userProfile = props.userProfile;
@@ -21,7 +22,7 @@ const ProfileInfo = (props) => {
           <div className={s.avatarBox}>
             <img
               className={s.avatar}
-              src={userProfile.photos.large}
+              src={userProfile.photos.large || defAvatar}
               alt="avatar"
             />
           </div>
