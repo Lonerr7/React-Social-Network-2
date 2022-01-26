@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useMatch } from 'react-router-dom';
 import { profileAPI } from '../../api/api';
-import { setUserProfileAC } from '../../redux/profileReducer';
+import { setUserProfileTC } from '../../redux/profileReducer';
 import Profile from './Profile';
 
 const ProfileContainer = (props) => {
@@ -10,10 +10,7 @@ const ProfileContainer = (props) => {
   const userId = match ? match.params.userId : `21512`;
 
   useEffect(() => {
-    (async () => {
-      const response = await profileAPI.getUserProfile(userId);
-      props.setUserProfile(response.data);
-    })();
+    props.setUserProfile(userId);
   }, [userId]);
 
   return <Profile userProfile={props.userProfile} />;
@@ -24,7 +21,7 @@ const mapStateToProps = (state) => ({
 });
 
 const dispatchToProps = {
-  setUserProfile: setUserProfileAC,
+  setUserProfile: setUserProfileTC,
 };
 
 export default connect(mapStateToProps, dispatchToProps)(ProfileContainer);

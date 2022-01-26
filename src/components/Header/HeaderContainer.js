@@ -1,21 +1,11 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { authAPI } from '../../api/api';
-import { setUserDataAC } from '../../redux/authReducer';
+import { getAuthUserDataTC } from '../../redux/authReducer';
 import Header from './Header';
 
 const HeaderContainer = (props) => {
   useEffect(() => {
-    (async () => {
-      try {
-        const response = await authAPI.authMe();
-
-        const { id, login, email } = response.data.data;
-        if (response.data.resultCode === 0) props.setUserData(id, login, email);
-      } catch (error) {
-        console.error(error);
-      }
-    })();
+    props.getSetAuthUserData();
   }, []);
 
   return <Header {...props} />;
@@ -27,7 +17,7 @@ const mapStateToProps = (state) => ({
 });
 
 const dispatchToProps = {
-  setUserData: setUserDataAC,
+  getSetAuthUserData: getAuthUserDataTC,
 };
 
 export default connect(mapStateToProps, dispatchToProps)(HeaderContainer);
