@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useMatch } from 'react-router-dom';
-import { profileAPI } from '../../api/api';
 import { setUserProfileTC } from '../../redux/profileReducer';
 import Profile from './Profile';
 
