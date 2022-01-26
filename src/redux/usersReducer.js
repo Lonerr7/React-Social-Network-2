@@ -1,3 +1,5 @@
+import { usersAPI } from '../api/api';
+
 const SET_USERS = 'SET_USERS';
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -105,5 +107,40 @@ export const toggleFollowingProgressAC = (inProgress, userId) => ({
   inProgress,
   userId,
 });
+
+export const getUsersTC = (currentPage, pageLength) => async (dispatch) => {
+  try {
+    dispatch(toggleFetchingAC(true));
+    const response = await usersAPI.getUsers(currentPage, pageLength);
+    dispatch(toggleFetchingAC(false));
+    dispatch(setUsersAC(response.data.items));
+    dispatch(setTotalUsersCountAC(response.data.totalCount));
+    dispatch(setCurrentPageAC(currentPage));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const followTC = (id) => async (dispatch) => {
+  try {
+    dispatch(toggleFollowingProgressAC(true, id));
+    const response = await usersAPI.followUser(id);
+    if (response.data.resultCode === 0) dispatch(followAC(id));
+    dispatch(toggleFollowingProgressAC(false, id));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const unfollowTC = (id) => async (dispatch) => {
+  try {
+    dispatch(toggleFollowingProgressAC(true, id));
+    const response = await usersAPI.unfollowUser(id);
+    if (response.data.resultCode === 0) dispatch(unfollowAC(id));
+    dispatch(toggleFollowingProgressAC(false, id));
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export default usersReducer;

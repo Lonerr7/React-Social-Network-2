@@ -1,76 +1,35 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { usersAPI } from '../../api/api';
-import {
-  followAC,
-  setCurrentPageAC,
-  setTotalUsersCountAC,
-  setUsersAC,
-  toggleFetchingAC,
-  toggleFollowingProgressAC,
-  unfollowAC,
-} from '../../redux/usersReducer';
+import { followTC, getUsersTC, unfollowTC } from '../../redux/usersReducer';
 import Preloader from '../common/Preloader/Preloader';
 import Users from './Users';
 import s from './Users.module.scss';
 
 const UsersContainer = ({
   users,
-  setUsers,
-  followUser,
-  unfollowUser,
+  follow,
+  getUsers,
+  unfollow,
   pageLength,
   currentPage,
   totalUsersCount,
-  setUsersCount,
-  setCurrentPage,
   isFetching,
-  setIsFetching,
   followingInProgress,
-  toggleFollowingProgress,
 }) => {
   useEffect(() => {
-    (async () => {
-      toggleIsFetching(true);
-      const response = await usersAPI.getUsers(currentPage, pageLength);
-      toggleIsFetching(false);
-      setUsers(response.data.items);
-      setUsersCount(response.data.totalCount);
-    })();
+    getUsers(currentPage, pageLength);
   }, []);
 
-  const toggleIsFetching = (isFetching) => {
-    setIsFetching(isFetching);
+  const onFollowClick = (id) => {
+    follow(id);
   };
 
-  const onFollowClick = async (id) => {
-    try {
-      toggleFollowingProgress(true, id);
-      const response = await usersAPI.followUser(id);
-      if (response.data.resultCode === 0) followUser(id);
-      toggleFollowingProgress(false, id);
-    } catch (error) {
-      console.error(error);
-    }
+  const onUnfollowClick = (id) => {
+    unfollow(id);
   };
 
-  const onUnfollowClick = async (id) => {
-    try {
-      toggleFollowingProgress(true, id);
-      const response = await usersAPI.unfollowUser(id);
-      if (response.data.resultCode === 0) unfollowUser(id);
-      toggleFollowingProgress(false, id);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const onPageChanged = async (page) => {
-    toggleIsFetching(true);
-    const response = await usersAPI.getUsers(page, pageLength);
-    toggleIsFetching(false);
-    setUsers(response.data.items);
-    setCurrentPage(page);
+  const onPageChanged = (page) => {
+    getUsers(page, pageLength);
   };
 
   return (
@@ -101,13 +60,9 @@ const mapStateToProps = (state) => ({
 });
 
 const dispatchToProps = {
-  setUsers: setUsersAC,
-  followUser: followAC,
-  unfollowUser: unfollowAC,
-  setUsersCount: setTotalUsersCountAC,
-  setCurrentPage: setCurrentPageAC,
-  setIsFetching: toggleFetchingAC,
-  toggleFollowingProgress: toggleFollowingProgressAC,
+  follow: followTC,
+  unfollow: unfollowTC,
+  getUsers: getUsersTC,
 };
 
 export default connect(mapStateToProps, dispatchToProps)(UsersContainer);
