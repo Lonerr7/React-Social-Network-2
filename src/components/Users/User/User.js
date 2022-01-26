@@ -10,6 +10,7 @@ const User = ({
   photos,
   onFollowClick,
   onUnfollowClick,
+  followingInProgress,
 }) => {
   return (
     <div className={s.user}>
@@ -17,11 +18,7 @@ const User = ({
         <NavLink to={`/profile/${id}`}>
           <img
             className={s.user__avatar_big}
-            src={
-              !photos.large
-                ? defAvatar
-                : photos.large
-            }
+            src={!photos.large ? defAvatar : photos.large}
             alt="avatar"
           />
         </NavLink>
@@ -33,6 +30,7 @@ const User = ({
           onClick={() => {
             onUnfollowClick(id);
           }}
+          disabled={followingInProgress.includes(id)}
         >
           Unfolow
         </button>
@@ -41,6 +39,7 @@ const User = ({
           onClick={() => {
             onFollowClick(id);
           }}
+          disabled={followingInProgress.includes(id)}
         >
           Follow
         </button>

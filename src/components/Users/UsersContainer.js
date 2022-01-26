@@ -7,6 +7,7 @@ import {
   setTotalUsersCountAC,
   setUsersAC,
   toggleFetchingAC,
+  toggleFollowingProgressAC,
   unfollowAC,
 } from '../../redux/usersReducer';
 import Preloader from '../common/Preloader/Preloader';
@@ -25,6 +26,8 @@ const UsersContainer = ({
   setCurrentPage,
   isFetching,
   setIsFetching,
+  followingInProgress,
+  toggleFollowingProgress,
 }) => {
   useEffect(() => {
     (async () => {
@@ -42,9 +45,10 @@ const UsersContainer = ({
 
   const onFollowClick = async (id) => {
     try {
+      toggleFollowingProgress(true, id);
       const response = await usersAPI.followUser(id);
-      console.log(response);
       if (response.data.resultCode === 0) followUser(id);
+      toggleFollowingProgress(false, id);
     } catch (error) {
       console.error(error);
     }
@@ -52,9 +56,10 @@ const UsersContainer = ({
 
   const onUnfollowClick = async (id) => {
     try {
+      toggleFollowingProgress(true, id);
       const response = await usersAPI.unfollowUser(id);
-      console.log(response);
       if (response.data.resultCode === 0) unfollowUser(id);
+      toggleFollowingProgress(false, id);
     } catch (error) {
       console.error(error);
     }
@@ -80,6 +85,7 @@ const UsersContainer = ({
         totalUsersCount={totalUsersCount}
         onPageChanged={onPageChanged}
         isFetching={isFetching}
+        followingInProgress={followingInProgress}
       />
     </div>
   );
@@ -91,6 +97,7 @@ const mapStateToProps = (state) => ({
   totalUsersCount: state.usersPage.totalUsersCount,
   pageLength: state.usersPage.pageLength,
   isFetching: state.usersPage.isFetching,
+  followingInProgress: state.usersPage.followingInProgress,
 });
 
 const dispatchToProps = {
@@ -100,6 +107,7 @@ const dispatchToProps = {
   setUsersCount: setTotalUsersCountAC,
   setCurrentPage: setCurrentPageAC,
   setIsFetching: toggleFetchingAC,
+  toggleFollowingProgress: toggleFollowingProgressAC,
 };
 
 export default connect(mapStateToProps, dispatchToProps)(UsersContainer);

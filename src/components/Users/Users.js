@@ -9,6 +9,7 @@ const Users = ({
   currentPage,
   totalUsersCount,
   onPageChanged,
+  followingInProgress
 }) => {
   const usersElements = users.map((u) => (
     <User
@@ -20,6 +21,7 @@ const Users = ({
       photos={u.photos}
       onFollowClick={onFollowClick}
       onUnfollowClick={onUnfollowClick}
+      followingInProgress={followingInProgress}
     />
   ));
 
@@ -32,17 +34,19 @@ const Users = ({
 
   return (
     <div className={s.users}>
-      {pageNumbers.map((p) => (
-        <span
-          onClick={() => {
-            onPageChanged(p);
-          }}
-          className={currentPage === p ? s.active + ' ' + s.page : s.page}
-          key={p}
-        >
-          {p}
-        </span>
-      ))}
+      <div className={s.pageNumbers__box}>
+        {pageNumbers.map((p) => (
+          <span
+            onClick={() => {
+              onPageChanged(p);
+            }}
+            className={currentPage === p ? s.active + ' ' + s.page : s.page}
+            key={p}
+          >
+            {p}
+          </span>
+        ))}
+      </div>
       {usersElements}
     </div>
   );
