@@ -1,12 +1,10 @@
 import s from './ProfileInfo.module.scss';
 import Preloader from '../../common/Preloader/Preloader';
-import tick from '../../../images/tick.png';
-import cross from '../../../images/cross.png';
-import defAvatar from '../../../images/default-avatar.png';
+import ProfileNameStatus from './ProfileNameStatus/ProfileNameStatus';
+import ProfileJob from './ProfileJob/ProfileJob';
 
 const ProfileInfo = (props) => {
-  const userProfile = props.userProfile;
-  if (!userProfile) return <Preloader />;
+  if (!props.userProfile) return <Preloader />;
 
   return (
     <div className={s.profileInfo}>
@@ -19,35 +17,8 @@ const ProfileInfo = (props) => {
       </div>
       <div className={s.profileInfo__descriptionBox}>
         <div className={s.profileInfo__description}>
-          <div className={s.avatarBox}>
-            <img
-              className={s.avatar}
-              src={userProfile.photos.large || defAvatar}
-              alt="avatar"
-            />
-          </div>
-          <div className={s.nameStatusContainer}>
-            <p className={s.name}>{userProfile.fullName}</p>
-            <p className={s.status}>status</p>
-          </div>
-          <div className={s.jobContainer}>
-            <div className={s.lookingForAJobContanier}>
-              <p>Looking for a job:</p>
-              <img
-                className={s.jobStatusImg}
-                src={userProfile.lookingForAJob ? tick : cross}
-                alt=""
-              />
-            </div>
-            <div className={s.lookingForAJobDescrContanier}>
-              <p>Job description:</p>
-              <p>
-                {userProfile.lookingForAJob
-                  ? userProfile.jobDescription
-                  : `---------`}
-              </p>
-            </div>
-          </div>
+          <ProfileNameStatus userProfile={props.userProfile} />
+          <ProfileJob userProfile={props.userProfile} />
         </div>
       </div>
     </div>
