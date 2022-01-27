@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import defAvatar from '../../../../images/default-avatar.png';
 import s from '../ProfileInfo.module.scss';
 
 const ProfileNameStatus = (props) => {
   const [editMode, setEditMode] = useState(false);
   const [localStatus, setLocalStatus] = useState(props.status);
+
+  useEffect(() => {
+    setLocalStatus(props.status);
+  }, [props.status]);
 
   const enableEditMode = () => {
     setEditMode(true);
