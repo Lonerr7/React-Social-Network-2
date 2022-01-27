@@ -3,6 +3,7 @@ import { profileAPI } from '../api/api';
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
 
 const initialState = {
   posts: [
@@ -11,6 +12,7 @@ const initialState = {
   ],
   newPostText: '',
   userProfile: null,
+  status: '',
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -37,6 +39,11 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         userProfile: action.userProfile,
       };
+    case SET_PROFILE_STATUS:
+      return {
+        ...state,
+        status: action.status,
+      };
     default:
       return state;
   }
@@ -48,7 +55,7 @@ export const addPostAC = (newPost) => ({
 });
 
 export const updateNewPostTextAC = (newText) => ({
-  type: UPDATE_NEW_POST_TEXT, 
+  type: UPDATE_NEW_POST_TEXT,
   newText,
 });
 
@@ -57,10 +64,33 @@ export const setUserProfileAC = (userProfile) => ({
   userProfile,
 });
 
+export const setProfileStatusAC = (status) => ({
+  type: SET_PROFILE_STATUS,
+  status,
+});
+
 export const setUserProfileTC = (userId) => async (dispatch) => {
   try {
     const response = await profileAPI.getUserProfile(userId);
     dispatch(setUserProfileAC(response.data));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getProfileStatusTC = (userId) => async (dispatch) => {
+  try {
+    const response = await profileAPI.getProfileStatus(userId);
+    dispatch(setProfileStatusAC(response.data));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateProfileStatusTC = (status) => async (dispatch) => {
+  try {
+    const response = await profileAPI.updateProfileStatus(status);
+    if (response.data.resultCode === 0) dispatch(setProfileStatusAC(status));
   } catch (error) {
     console.error(error);
   }

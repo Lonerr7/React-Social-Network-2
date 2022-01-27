@@ -4,13 +4,19 @@ import s from '../ProfileInfo.module.scss';
 
 const ProfileNameStatus = (props) => {
   const [editMode, setEditMode] = useState(false);
+  const [localStatus, setLocalStatus] = useState(props.status);
 
   const enableEditMode = () => {
     setEditMode(true);
   };
 
   const disableEditMode = () => {
+    props.updateProfileStatus(localStatus);
     setEditMode(false);
+  };
+
+  const onLocalStatusChange = (e) => {
+    setLocalStatus(e.target.value);
   };
 
   return (
@@ -26,13 +32,15 @@ const ProfileNameStatus = (props) => {
         <p className={s.name}>{props.userProfile.fullName}</p>
         {!editMode ? (
           <p onDoubleClick={enableEditMode} className={s.status}>
-            status
+            {props.status ? props.status : '-------'}
           </p>
         ) : (
           <input
             className={s.status}
             onBlur={disableEditMode}
             autoFocus={true}
+            value={localStatus}
+            onChange={onLocalStatusChange}
           />
         )}
       </div>

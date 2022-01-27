@@ -17,7 +17,11 @@ const ProfileInfo = (props) => {
       </div>
       <div className={s.profileInfo__descriptionBox}>
         <div className={s.profileInfo__description}>
-          <ProfileNameStatus userProfile={props.userProfile} />
+          <ProfileNameStatus
+            userProfile={props.userProfile}
+            status={props.status}
+            updateProfileStatus={props.updateProfileStatus}
+          />
           <ProfileJob userProfile={props.userProfile} />
         </div>
       </div>
