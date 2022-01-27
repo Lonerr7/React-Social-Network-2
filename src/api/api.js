@@ -40,4 +40,12 @@ export const authAPI = {
   authMe() {
     return axiosInstance.get(`auth/me`);
   },
+
+  logIn(loginInfo) {
+    return axiosInstance.post(`auth/login`, { loginInfo });
+  },
+
+  logOut() {
+    return axiosInstance.delete(`auth/login`);
+  },
 };

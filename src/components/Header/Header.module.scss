@@ -15,3 +15,11 @@
 .loginLink, .loginName {
   font-weight: 500;
 }
+
+.loginControls {
+  display: flex;
+}
+
+.loginName {
+  margin-right: 20px;
+}
