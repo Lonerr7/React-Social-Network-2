@@ -20,7 +20,7 @@ const authReducer = (state = initialState, action) => {
         id: action.id,
         email: action.email,
         login: action.login,
-        isAuth: true,
+        isAuth: action.isAuth,
       };
     case LOG_IN:
       return {
@@ -37,12 +37,16 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
-export const setUserDataAC = (id, login, email) => ({
-  type: SET_USER_DATA,
-  id,
-  login,
-  email,
-});
+export const setUserDataAC = (id, login, email, isAuth) => {
+  debugger
+  return {
+    type: SET_USER_DATA,
+    id,
+    login,
+    email,
+    isAuth,
+  };
+};
 
 export const logInAC = () => ({
   type: LOG_IN,
@@ -59,20 +63,20 @@ export const getAuthUserDataTC = () => async (dispatch) => {
 
     const { id, login, email } = response.data.data;
     if (response.data.resultCode === 0)
-      dispatch(setUserDataAC(id, login, email));
+      dispatch(setUserDataAC(id, login, email, true));
   } catch (error) {
     console.error(error);
   }
 };
 
 export const logInTC = (loginInfo) => async (dispatch) => {
-  debugger
+  debugger;
   try {
     const response = await authAPI.logIn(loginInfo);
 
     if (response.data.resultCode === 0) {
       dispatch(logInAC());
-      getAuthUserDataTC();
+      dispatch(getAuthUserDataTC());
     }
   } catch (error) {
     console.error(error);
@@ -85,7 +89,8 @@ export const logOutTC = () => async (dispatch) => {
 
     if (response.data.resultCode === 0) {
       dispatch(logOutAC());
-      getAuthUserDataTC(); //! Когда разлогинились и пытаемся сделать getAuthUserDataTC(), то он выдает resultCode 1 и диспатч не идет
+      // getAuthUserDataTC(); //! Когда разлогинились и пытаемся сделать getAuthUserDataTC(), то он выдает resultCode 1 и диспатч не идет
+      dispatch(setUserDataAC(null, null, null, false));
     }
   } catch (error) {
     console.error(error);

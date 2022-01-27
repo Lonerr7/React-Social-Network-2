@@ -1,5 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { connect } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { logInTC } from '../../redux/authReducer';
 import s from './Login.module.scss';
@@ -17,9 +18,12 @@ const Login = (props) => {
   });
 
   const onSubmit = (values) => {
-    debugger
+    debugger;
     props.logIn(values);
   };
+
+  if (props.isLoggedIn) return <Navigate to={`/profile`} />;
+
   return (
     <div className={s.loginPage}>
       <p className={s.loginTitle}>Login</p>
@@ -64,8 +68,12 @@ const Login = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.auth.isLoggedIn,
+});
+
 const dispatchToProps = {
   logIn: logInTC,
 };
 
-export default connect(null, dispatchToProps)(Login);
+export default connect(mapStateToProps, dispatchToProps)(Login);

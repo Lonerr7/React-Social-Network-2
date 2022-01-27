@@ -42,7 +42,7 @@ export const authAPI = {
   },
 
   logIn(loginInfo) {
-    return axiosInstance.post(`auth/login`, { loginInfo });
+    return axiosInstance.post(`auth/login`, { ...loginInfo });
   },
 
   logOut() {
