@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useMatch } from 'react-router-dom';
+import withAuthRedirect from '../../hoc/withAuthRedirect';
 import { setUserProfileTC } from '../../redux/profileReducer';
 import Profile from './Profile';
 
@@ -23,4 +24,6 @@ const dispatchToProps = {
   setUserProfile: setUserProfileTC,
 };
 
-export default connect(mapStateToProps, dispatchToProps)(ProfileContainer);
+const AuthRedirectComponent = withAuthRedirect(ProfileContainer);
+
+export default connect(mapStateToProps, dispatchToProps)(AuthRedirectComponent);
