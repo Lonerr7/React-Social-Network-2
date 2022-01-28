@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useMatch } from 'react-router-dom';
 import { compose } from 'redux';
-// import withAuthRedirect from '../../hoc/withAuthRedirect';
+import withAuthRedirect from '../../hoc/withAuthRedirect';
 import {
   getProfileStatusTC,
   setUserProfileTC,
@@ -40,6 +40,6 @@ const dispatchToProps = {
 };
 
 export default compose(
-  connect(mapStateToProps, dispatchToProps)
-  // withAuthRedirect
+  connect(mapStateToProps, dispatchToProps),
+  withAuthRedirect
 )(ProfileContainer);

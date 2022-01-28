@@ -1,15 +1,12 @@
 import { authAPI } from '../api/api';
 
 const SET_USER_DATA = 'SET_USER_DATA';
-const LOG_IN = 'LOG_IN';
-const LOG_OUT = 'LOG_OUT';
 
 const initialState = {
   id: null,
   login: null,
   email: null,
   isAuth: false,
-  isLoggedIn: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -22,23 +19,12 @@ const authReducer = (state = initialState, action) => {
         login: action.login,
         isAuth: action.isAuth,
       };
-    case LOG_IN:
-      return {
-        ...state,
-        isLoggedIn: true,
-      };
-    case LOG_OUT:
-      return {
-        ...state,
-        isLoggedIn: false,
-      };
     default:
       return state;
   }
 };
 
 export const setUserDataAC = (id, login, email, isAuth) => {
-  debugger
   return {
     type: SET_USER_DATA,
     id,
@@ -47,14 +33,6 @@ export const setUserDataAC = (id, login, email, isAuth) => {
     isAuth,
   };
 };
-
-export const logInAC = () => ({
-  type: LOG_IN,
-});
-
-export const logOutAC = () => ({
-  type: LOG_OUT,
-});
 
 export const getAuthUserDataTC = () => async (dispatch) => {
   try {
@@ -70,12 +48,10 @@ export const getAuthUserDataTC = () => async (dispatch) => {
 };
 
 export const logInTC = (loginInfo) => async (dispatch) => {
-  debugger;
   try {
     const response = await authAPI.logIn(loginInfo);
 
     if (response.data.resultCode === 0) {
-      dispatch(logInAC());
       dispatch(getAuthUserDataTC());
     }
   } catch (error) {
@@ -88,8 +64,6 @@ export const logOutTC = () => async (dispatch) => {
     const response = await authAPI.logOut();
 
     if (response.data.resultCode === 0) {
-      dispatch(logOutAC());
-      // getAuthUserDataTC(); //! Когда разлогинились и пытаемся сделать getAuthUserDataTC(), то он выдает resultCode 1 и диспатч не идет
       dispatch(setUserDataAC(null, null, null, false));
     }
   } catch (error) {
