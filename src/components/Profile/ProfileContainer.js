@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useMatch } from 'react-router-dom';
 import { compose } from 'redux';
-import withAuthRedirect from '../../hoc/withAuthRedirect';
+// import withAuthRedirect from '../../hoc/withAuthRedirect';
 import {
   getProfileStatusTC,
   setUserProfileTC,
@@ -12,7 +12,7 @@ import Profile from './Profile';
 
 const ProfileContainer = (props) => {
   const match = useMatch(`/profile/:userId`);
-  const userId = match ? match.params.userId : `21512`;
+  const userId = match ? match.params.userId : props.userId;
 
   useEffect(() => {
     props.setUserProfile(userId);
@@ -31,6 +31,7 @@ const ProfileContainer = (props) => {
 const mapStateToProps = (state) => ({
   userProfile: state.profilePage.userProfile,
   status: state.profilePage.status,
+  userId: state.auth.id,
 });
 
 const dispatchToProps = {
@@ -41,5 +42,5 @@ const dispatchToProps = {
 
 export default compose(
   connect(mapStateToProps, dispatchToProps),
-  withAuthRedirect
+  // withAuthRedirect
 )(ProfileContainer);

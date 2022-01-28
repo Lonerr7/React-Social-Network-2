@@ -34,6 +34,16 @@ input {
     font-size: 15px;
   }
 
+  &__formInputBox {
+    display: flex;
+  }
+
+  &__formInputBtn {
+    @extend %button-style; 
+    display: block;
+    padding: 5px;
+  }
+
   &__fromErrorMsg {
     color: red;
     font-size: 14px;
@@ -48,5 +58,10 @@ input {
 }
 
 .loginTitle {
+  margin-bottom: 20px;
+}
+
+.serverError {
+  color: red;
   margin-bottom: 20px;
 }

@@ -37,7 +37,6 @@ export const setUserDataAC = (id, login, email, isAuth) => {
 export const getAuthUserDataTC = () => async (dispatch) => {
   try {
     const response = await authAPI.authMe();
-    console.log(response.data);
 
     const { id, login, email } = response.data.data;
     if (response.data.resultCode === 0)
@@ -47,12 +46,14 @@ export const getAuthUserDataTC = () => async (dispatch) => {
   }
 };
 
-export const logInTC = (loginInfo) => async (dispatch) => {
+export const logInTC = (loginInfo, setStatus) => async (dispatch) => {
   try {
     const response = await authAPI.logIn(loginInfo);
 
     if (response.data.resultCode === 0) {
       dispatch(getAuthUserDataTC());
+    } else {
+      setStatus(response.data.messages);
     }
   } catch (error) {
     console.error(error);
