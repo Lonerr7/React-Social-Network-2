@@ -1,4 +1,15 @@
+@import '../../../vars';
+
 .textarea {
   display: block;
   margin-bottom: 20px;
+  width: 100%;
+  min-height: 50px;
+  resize: none;
+  padding: 5px;
+}
+
+.newMessageBtn {
+  @extend %button-style;
+  padding: 5px;
 }

@@ -1,6 +1,7 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import {ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
 import s from '../Login.module.scss';
+import Error from './TextError/TextError';
 
 const LoginForm = (props) => {
   const initialValues = {
@@ -10,7 +11,7 @@ const LoginForm = (props) => {
   };
 
   const validationSchema = yup.object({
-    email: yup.string().required(`Required`),
+    email: yup.string().email(`Invalid email format`).required(`Required`),
     password: yup.string().required(`Required`),
   });
 
@@ -26,32 +27,38 @@ const LoginForm = (props) => {
     >
       <Form className={s.loginPage__form}>
         <div className={s.loginPage__formControl}>
-          <label htmlFor="email">Email</label>
+          <label className={s.loginPage__formLabel} htmlFor="email">
+            Email
+          </label>
           <Field
             className={s.loginPage__formInput}
             name="email"
             id="email"
             type="text"
           />
-          <ErrorMessage name="email" />
+          <ErrorMessage name="email" component={Error} />
         </div>
         <div className={s.loginPage__formControl}>
-          <label htmlFor="password">Password</label>
+          <label className={s.loginPage__formLabel} htmlFor="password">
+            Password
+          </label>
           <Field
             className={s.loginPage__formInput}
             name="password"
             id="password"
             type="password"
           />
-          <ErrorMessage name="password" />
+          <ErrorMessage name="password" component={Error} />
         </div>
 
         <div className={s.loginPage__formControl_checkbox}>
-          <label htmlFor="rememberMe">Remember me</label>
+          <label className={s.loginPage__formLabel} htmlFor="rememberMe">
+            Remember me
+          </label>
           <Field name="rememberMe" id="checkbox" type="checkbox" />
         </div>
 
-        <button type="submit">Submit</button>
+        <button className={s.loginPage__formBtn} type="submit">Submit</button>
       </Form>
     </Formik>
   );

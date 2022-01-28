@@ -1,3 +1,5 @@
+@import '../../vars';
+
 .logo {
   width: 30px;
 }
@@ -12,14 +14,25 @@
   align-items: center;
 }
 
-.loginLink, .loginName {
+.loginLink {
+  @extend %button-style-2 ;
+  
+}
+
+.loginLink,
+.loginName {
   font-weight: 500;
 }
 
 .loginControls {
   display: flex;
+  align-items: center;
 }
 
 .loginName {
   margin-right: 20px;
+}
+
+.logoutBtn {
+  @extend %button-style-2 ;
 }

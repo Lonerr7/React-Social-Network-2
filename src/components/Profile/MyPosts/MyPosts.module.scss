@@ -1,3 +1,5 @@
+@import '../../../vars';
+
 .myPosts {
   padding: 20px;
   border-radius: 15px;
@@ -5,4 +7,16 @@
 
 .newPostBox {
   margin-bottom: 30px;
+}
+
+.addPostBtn {
+  @extend %button-style;
+  padding: 5px;
+}
+
+.postsTextarea {
+  display: block;
+  margin-bottom: 20px;
+  min-width: 300px;
+  padding: 10px;
 }

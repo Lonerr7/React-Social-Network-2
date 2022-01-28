@@ -1,12 +1,37 @@
+@import '../../vars';
+
 .user {
   margin-bottom: 30px;
+  border: 1px solid black;
+  max-width: 200px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   &:last-child {
     margin-bottom: 0;
   }
-  
+
+  &__avatarBox {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
   &__avatar_big {
-    width: 200px;
+    width: 100%;
+  }
+
+  &Btn {
+    @extend %button-style;
+    padding: 3px;
+    width: 100%;
+  }
+
+  &__name,
+  &__status {
+    margin-bottom: 6px;
   }
 }
 

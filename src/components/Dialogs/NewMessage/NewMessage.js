@@ -17,7 +17,7 @@ const NewMessage = ({ newMessageText, updateNewMessageText, sendMessage }) => {
           value={newMessageText}
           onChange={onMessageChange}
         ></textarea>
-        <button onClick={onAddMessage}>Add Message</button>
+        <button className={s.newMessageBtn} onClick={onAddMessage}>Add Message</button>
       </div>
     </div>
   );

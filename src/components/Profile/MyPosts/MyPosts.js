@@ -23,9 +23,9 @@ const MyPosts = ({ updateNewPostText, addPost, profilePage }) => {
     <div className={s.myPosts}>
       MyPosts
       <div className={s.newPostBox}>
-        <textarea onChange={onPostChange} value={postText}></textarea>
+        <textarea className={s.postsTextarea} onChange={onPostChange} value={postText}></textarea>
         <div>
-          <button onClick={onAddPost}>New post</button>
+          <button className={s.addPostBtn} onClick={onAddPost}>New post</button>
         </div>
       </div>
       <div className={s.posts}>{postElements}</div>

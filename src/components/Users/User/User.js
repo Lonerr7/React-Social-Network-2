@@ -14,7 +14,7 @@ const User = ({
 }) => {
   return (
     <div className={s.user}>
-      <div>
+      <div className={s.user__avatarBox}>
         <NavLink to={`/profile/${id}`}>
           <img
             className={s.user__avatar_big}
@@ -23,10 +23,11 @@ const User = ({
           />
         </NavLink>
       </div>
-      <p>{name}</p>
-      <p>{status ? status : '------'}</p>
+      <NavLink to={`/profile/${id}`} className={s.user__name}>{name}</NavLink>
+      <p className={s.user__status}>{status ? status : '------'}</p>
       {followed ? (
         <button
+        className={s.userBtn}
           onClick={() => {
             onUnfollowClick(id);
           }}
@@ -36,6 +37,7 @@ const User = ({
         </button>
       ) : (
         <button
+        className={s.userBtn}
           onClick={() => {
             onFollowClick(id);
           }}
