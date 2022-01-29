@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { followTC, getUsersTC, unfollowTC } from '../../redux/usersReducer';
+import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageLength, getTotalUsersCount, getUsers } from '../../redux/usersSelectors';
 import Preloader from '../common/Preloader/Preloader';
 import Users from './Users';
 import s from './Users.module.scss';
@@ -51,12 +52,12 @@ const UsersContainer = ({
 };
 
 const mapStateToProps = (state) => ({
-  users: state.usersPage.users,
-  currentPage: state.usersPage.currentPage,
-  totalUsersCount: state.usersPage.totalUsersCount,
-  pageLength: state.usersPage.pageLength,
-  isFetching: state.usersPage.isFetching,
-  followingInProgress: state.usersPage.followingInProgress,
+  users: getUsers(state),
+  currentPage: getCurrentPage(state),
+  totalUsersCount: getTotalUsersCount(state),
+  pageLength: getPageLength(state),
+  isFetching: getIsFetching(state),
+  followingInProgress: getFollowingInProgress(state),
 });
 
 const dispatchToProps = {
