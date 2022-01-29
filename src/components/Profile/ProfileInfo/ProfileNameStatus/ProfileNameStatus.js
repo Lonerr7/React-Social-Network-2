@@ -29,7 +29,7 @@ const ProfileNameStatus = (props) => {
         <img
           className={s.avatar}
           src={props.userProfile.photos.large || defAvatar}
-          alt="avatar"
+          alt='avatar'
         />
       </div>
       <div className={s.nameStatusContainer}>

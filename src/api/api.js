@@ -48,4 +48,8 @@ export const authAPI = {
   logOut() {
     return axiosInstance.delete(`auth/login`);
   },
+
+  getCaptcha() {
+    return axiosInstance.get(`/security/get-captcha-url`);
+  },
 };
