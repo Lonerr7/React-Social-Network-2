@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import s from './MyPosts.module.scss';
 import Post from './Post/Post';
 
-const MyPosts = ({ updateNewPostText, addPost, profilePage }) => {
+const MyPosts = ({ addPost, profilePage }) => {
   const postElements = profilePage.posts.map((p) => (
     <Post postMessage={p.postMessage} id={p.id} key={p.id} />
   ));
@@ -23,9 +23,15 @@ const MyPosts = ({ updateNewPostText, addPost, profilePage }) => {
     <div className={s.myPosts}>
       MyPosts
       <div className={s.newPostBox}>
-        <textarea className={s.postsTextarea} onChange={onPostChange} value={postText}></textarea>
+        <textarea
+          className={s.postsTextarea}
+          onChange={onPostChange}
+          value={postText}
+        ></textarea>
         <div>
-          <button className={s.addPostBtn} onClick={onAddPost}>New post</button>
+          <button className={s.addPostBtn} onClick={onAddPost}>
+            New post
+          </button>
         </div>
       </div>
       <div className={s.posts}>{postElements}</div>

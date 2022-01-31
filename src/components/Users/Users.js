@@ -1,3 +1,4 @@
+import Paginator from '../common/Paginator/Paginator';
 import User from './User/User';
 import s from './Users.module.scss';
 
@@ -9,7 +10,7 @@ const Users = ({
   currentPage,
   totalUsersCount,
   onPageChanged,
-  followingInProgress
+  followingInProgress,
 }) => {
   const usersElements = users.map((u) => (
     <User
@@ -25,28 +26,14 @@ const Users = ({
     />
   ));
 
-  const totalPagesCount = Math.ceil(totalUsersCount / pageLength);
-
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPagesCount; i++) {
-    pageNumbers.push(i);
-  }
-
   return (
     <div className={s.users}>
-      <div className={s.pageNumbers__box}>
-        {pageNumbers.map((p) => (
-          <span
-            onClick={() => {
-              onPageChanged(p);
-            }}
-            className={currentPage === p ? s.active + ' ' + s.page : s.page}
-            key={p}
-          >
-            {p}
-          </span>
-        ))}
-      </div>
+      <Paginator
+        totalUsersCount={totalUsersCount}
+        pageLength={pageLength}
+        onPageChanged={onPageChanged}
+        currentPage={currentPage}
+      />
       {usersElements}
     </div>
   );

@@ -21,6 +21,8 @@ const ProfileInfo = (props) => {
             userProfile={props.userProfile}
             status={props.status}
             updateProfileStatus={props.updateProfileStatus}
+            isOwner={props.isOwner}
+            uploadPhoto={props.uploadPhoto}
           />
           <ProfileJob userProfile={props.userProfile} />
         </div>

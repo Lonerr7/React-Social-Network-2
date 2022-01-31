@@ -7,11 +7,13 @@ import {
   getProfileStatusTC,
   setUserProfileTC,
   updateProfileStatusTC,
+  uploadPhotoTC,
 } from '../../redux/profileReducer';
 import Profile from './Profile';
 
 const ProfileContainer = (props) => {
   const match = useMatch(`/profile/:userId`);
+  console.log(match);
   const userId = match ? match.params.userId : props.userId;
 
   useEffect(() => {
@@ -24,6 +26,8 @@ const ProfileContainer = (props) => {
       userProfile={props.userProfile}
       status={props.status}
       updateProfileStatus={props.updateProfileStatus}
+      isOwner={userId === props.userId}
+      uploadPhoto={props.uploadPhoto}
     />
   );
 };
@@ -38,6 +42,7 @@ const dispatchToProps = {
   setUserProfile: setUserProfileTC,
   getProfileStatus: getProfileStatusTC,
   updateProfileStatus: updateProfileStatusTC,
+  uploadPhoto: uploadPhotoTC,
 };
 
 export default compose(

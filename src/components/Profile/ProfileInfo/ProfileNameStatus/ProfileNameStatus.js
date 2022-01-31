@@ -23,6 +23,13 @@ const ProfileNameStatus = (props) => {
     setLocalStatus(e.target.value);
   };
 
+  const onPhotoUpload = (e) => {
+    if (e.target.files.length > 0) {
+      const photo = e.target.files[0];
+      props.uploadPhoto(photo)
+    }
+  };
+
   return (
     <div>
       <div className={s.avatarBox}>
@@ -31,6 +38,7 @@ const ProfileNameStatus = (props) => {
           src={props.userProfile.photos.large || defAvatar}
           alt='avatar'
         />
+        {props.isOwner ? <input type='file' onChange={onPhotoUpload} /> : null}
       </div>
       <div className={s.nameStatusContainer}>
         <p className={s.name}>{props.userProfile.fullName}</p>

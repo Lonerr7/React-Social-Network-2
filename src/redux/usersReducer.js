@@ -1,4 +1,5 @@
 import { usersAPI } from '../api/api';
+import { updateObjectInArray } from '../utils/objectHelpers';
 
 const SET_USERS = 'SET_USERS';
 const FOLLOW = 'FOLLOW';
@@ -24,21 +25,15 @@ const usersReducer = (state = initialState, action) => {
     case FOLLOW:
       return {
         ...state,
-        users: state.users.map((u) => {
-          if (u.id === action.userId) {
-            return { ...u, followed: true };
-          }
-          return u;
+        users: updateObjectInArray(state.users, action.userId, 'id', {
+          followed: true,
         }),
       };
     case UNFOLLOW:
       return {
         ...state,
-        users: state.users.map((u) => {
-          if (u.id === action.userId) {
-            return { ...u, followed: false };
-          }
-          return u;
+        users: updateObjectInArray(state.users, action.userId, 'id', {
+          followed: false,
         }),
       };
     case SET_TOTAL_USERS_COUNT:
@@ -121,26 +116,29 @@ export const getUsersTC = (currentPage, pageLength) => async (dispatch) => {
   }
 };
 
-export const followTC = (id) => async (dispatch) => {
+const followUnfollowFlow = async (dispatch, id, apiMethod, actionCreator) => {
   try {
     dispatch(toggleFollowingProgressAC(true, id));
-    const response = await usersAPI.followUser(id);
-    if (response.data.resultCode === 0) dispatch(followAC(id));
+
+    const response = await apiMethod(id);
+    if (response.data.resultCode === 0) dispatch(actionCreator(id));
     dispatch(toggleFollowingProgressAC(false, id));
   } catch (error) {
     console.error(error);
   }
 };
 
-export const unfollowTC = (id) => async (dispatch) => {
-  try {
-    dispatch(toggleFollowingProgressAC(true, id));
-    const response = await usersAPI.unfollowUser(id);
-    if (response.data.resultCode === 0) dispatch(unfollowAC(id));
-    dispatch(toggleFollowingProgressAC(false, id));
-  } catch (error) {
-    console.error(error);
-  }
+export const followTC = (id) => (dispatch) => {
+  const apiMethod = usersAPI.followUser;
+  const actionCreator = followAC;
+
+  followUnfollowFlow(dispatch, id, apiMethod, actionCreator);
+};
+
+export const unfollowTC = (id) => (dispatch) => {
+  const apiMethod = usersAPI.unfollowUser;
+  const actionCreator = unfollowAC;
+  followUnfollowFlow(dispatch, id, apiMethod, actionCreator);
 };
 
 export default usersReducer;
