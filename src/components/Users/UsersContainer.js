@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { followTC, getUsersTC, unfollowTC } from '../../redux/usersReducer';
-import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageLength, getTotalUsersCount, getUsers } from '../../redux/usersSelectors';
+import { getCurrentPage, getFollowingInProgress, getIsFetching, getPageLength, getTotalUsersCount, getUsers, getUsersSuperSelector } from '../../redux/usersSelectors';
 import Preloader from '../common/Preloader/Preloader';
 import Users from './Users';
 import s from './Users.module.scss';
@@ -52,7 +52,7 @@ const UsersContainer = ({
 };
 
 const mapStateToProps = (state) => ({
-  users: getUsers(state),
+  users: getUsersSuperSelector(state),
   currentPage: getCurrentPage(state),
   totalUsersCount: getTotalUsersCount(state),
   pageLength: getPageLength(state),
