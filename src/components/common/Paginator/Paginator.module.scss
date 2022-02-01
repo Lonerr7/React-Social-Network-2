@@ -1,5 +1,8 @@
 .pageNumbers__box {
   margin-bottom: 20px;
+  display: flex;
+  min-width: 400px;
+  justify-content: space-between; 
 }
 
 .page {
