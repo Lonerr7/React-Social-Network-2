@@ -13,7 +13,6 @@ const Paginator = (props) => {
 
   return (
     <div className={s.pageNumbers__box}>
-      
       <Pagination
         activePage={props.currentPage}
         itemsCountPerPage={props.pageLength}
