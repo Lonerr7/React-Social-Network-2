@@ -28,6 +28,7 @@ const ProfileContainer = (props) => {
       updateProfileStatus={props.updateProfileStatus}
       isOwner={userId === props.userId}
       uploadPhoto={props.uploadPhoto}
+      userId={userId}
     />
   );
 };

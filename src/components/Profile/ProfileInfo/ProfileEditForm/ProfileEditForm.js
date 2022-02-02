@@ -5,6 +5,7 @@ import s from './ProfileEditForm.module.scss';
 import TextError from './TextError/TextError';
 
 const ProfileEditForm = (props) => {
+  debugger
   const initialValues = {
     fullName: '',
     lookingForAJob: '',
@@ -47,7 +48,7 @@ const ProfileEditForm = (props) => {
     <Formik
       initialValues={initialValues}
       onSubmit={onSubmit}
-      // validationSchema={validationSchema}
+      validationSchema={validationSchema}
     >
       {(props) => (
         <Form className={s.profileEditForm}>

@@ -5,6 +5,7 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
 const UPLOAD_PHOTO = 'UPLOAD_PHOTO';
+const UPDATE_PROFILE_INFO = 'UPDATE_PROFILE_INFO';
 
 const initialState = {
   posts: [
@@ -49,6 +50,10 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         userProfile: { ...state.userProfile, photos: action.photos },
+      };
+    case UPDATE_PROFILE_INFO:
+      return {
+        ...state,
       };
     default:
       return state;
@@ -116,5 +121,16 @@ export const uploadPhotoTC = (photo) => async (dispatch) => {
       dispatch(uploadPhotoAC(response.data.data.photos));
   } catch (error) {}
 };
+
+export const updateProfileInfoTC =
+  (newProfileInfo, userId) => async (dispatch) => {
+    try {
+      const response = await profileAPI.updateProfileInfo(newProfileInfo);
+
+      if (response.data.resultCode === 0) dispatch(setUserProfileTC(userId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 export default profileReducer;

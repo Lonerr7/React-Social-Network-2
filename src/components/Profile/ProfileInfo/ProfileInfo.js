@@ -3,6 +3,7 @@ import Preloader from '../../common/Preloader/Preloader';
 import { useState } from 'react';
 import ProfileEditForm from './ProfileEditForm/ProfileEditForm';
 import ProfileData from './ProfileData/ProfileData';
+import ProfileEditFormContainer from './ProfileEditForm/ProfileEditFormContainer';
 
 const ProfileInfo = (props) => {
   const [editMode, setEditMode] = useState(false);
@@ -30,7 +31,14 @@ const ProfileInfo = (props) => {
             </button>
           )}
 
-          {editMode ? <ProfileEditForm editMode={editMode} setEditMode={setEditMode} /> : <ProfileData {...props} />}
+          {editMode ? (
+            <ProfileEditFormContainer
+              editMode={editMode}
+              setEditMode={setEditMode}
+            />
+          ) : (
+            <ProfileData {...props} />
+          )}
         </div>
       </div>
     </div>
