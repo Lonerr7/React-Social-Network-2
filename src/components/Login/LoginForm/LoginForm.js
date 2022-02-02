@@ -67,7 +67,7 @@ const LoginForm = (props) => {
 
           {captchaURL ? (
             <div className={s.loginPage__formControl}>
-              <img src={captchaURL} alt="captcha" />
+              <img src={captchaURL} alt='captcha' />
               <label className={s.loginPage__formLabel} htmlFor='captcha'>
                 Captcha
               </label>

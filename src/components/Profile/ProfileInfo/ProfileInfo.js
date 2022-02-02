@@ -1,9 +1,12 @@
 import s from './ProfileInfo.module.scss';
 import Preloader from '../../common/Preloader/Preloader';
-import ProfileNameStatus from './ProfileNameStatus/ProfileNameStatus';
-import ProfileJob from './ProfileJob/ProfileJob';
+import { useState } from 'react';
+import ProfileEditForm from './ProfileEditForm/ProfileEditForm';
+import ProfileData from './ProfileData/ProfileData';
 
 const ProfileInfo = (props) => {
+  const [editMode, setEditMode] = useState(false);
+
   if (!props.userProfile) return <Preloader />;
 
   return (
@@ -11,20 +14,23 @@ const ProfileInfo = (props) => {
       <div className={s.profilePictureBox}>
         <img
           className={s.profilePicture}
-          src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
-          alt="profile img"
+          src='https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg'
+          alt='profile img'
         />
       </div>
       <div className={s.profileInfo__descriptionBox}>
         <div className={s.profileInfo__description}>
-          <ProfileNameStatus
-            userProfile={props.userProfile}
-            status={props.status}
-            updateProfileStatus={props.updateProfileStatus}
-            isOwner={props.isOwner}
-            uploadPhoto={props.uploadPhoto}
-          />
-          <ProfileJob userProfile={props.userProfile} />
+          {props.isOwner && !editMode && (
+            <button
+              onClick={() => {
+                setEditMode(true);
+              }}
+            >
+              Edit profile
+            </button>
+          )}
+
+          {editMode ? <ProfileEditForm /> : <ProfileData {...props} />}
         </div>
       </div>
     </div>

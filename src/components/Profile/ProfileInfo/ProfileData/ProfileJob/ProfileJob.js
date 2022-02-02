@@ -1,7 +1,7 @@
 import React from 'react';
-import tick from '../../../../images/tick.png';
-import cross from '../../../../images/cross.png';
-import s from '../ProfileInfo.module.scss';
+import tick from '../../../../../images/tick.png';
+import cross from '../../../../../images/cross.png';
+import s from '../../ProfileInfo.module.scss';
 
 const ProfileJob = (props) => {
   return (
