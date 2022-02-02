@@ -39,108 +39,192 @@ const ProfileEditForm = (props) => {
   });
 
   const onSubmit = (values, { setSubmitting, setStatus }) => {
-    console.log(values);
     props.updateProfileInfo(values, props.userId);
     props.setEditMode(false);
     setSubmitting(false);
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-    >
-      {(props) => (
-        <Form className={s.profileEditForm}>
-          <div className={s.formControl}>
-            <label htmlFor='fullName'>Full name</label>
-            <Field name='fullName' id='fullName' type='text' />
-            <ErrorMessage name='fullName' component={TextError} />
-          </div>
+    <div>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
+        {(props) => (
+          <Form className={s.profileEditForm}>
+            <div className={s.formControl}>
+              <label className={s.formLabel} htmlFor='fullName'>
+                Full name
+              </label>
+              <Field
+                className={s.formInput}
+                name='fullName'
+                id='fullName'
+                type='text'
+              />
+              <ErrorMessage name='fullName' component={TextError} />
+            </div>
 
-          <div className={s.formControl}>
-            <label className={s.loginPage__formLabel} htmlFor='lookingForAJob'>
-              Looking for a job
-            </label>
-            <Field name='lookingForAJob' id='lookingForAJob' type='checkbox' />
-          </div>
+            <div className={s.formControl}>
+              <label className={s.formLabel} htmlFor='aboutMe'>
+                About Me
+              </label>
+              <Field
+                className={s.formInput}
+                name='aboutMe'
+                id='aboutMe'
+                type='text'
+              />
+            </div>
 
-          <div className={s.formControl}>
-            <label className={s.loginPage__formLabel} htmlFor='aboutMe'>
-              About Me
-            </label>
-            <Field name='aboutMe' id='aboutMe' type='text' />
-          </div>
+            <div className={s.formControl_checkbox}>
+              <label className={s.formLabel} htmlFor='lookingForAJob'>
+                Looking for a job
+              </label>
+              <Field
+                
+                name='lookingForAJob'
+                id='lookingForAJob'
+                type='checkbox'
+              />
+            </div>
 
+            <div className={s.formControl}>
+              <label
+                className={s.formLabel}
+                htmlFor='lookingForAJobDescription'
+              >
+                Looking for a job description
+              </label>
+              <Field
+                className={s.formInput}
+                name='lookingForAJobDescription'
+                id='lookingForAJobDescription'
+                type='text'
+              />
+              <ErrorMessage
+                name='lookingForAJobDescription'
+                component={TextError}
+              />
+            </div>
 
-          <div className={s.formControl}>
-            <label htmlFor='lookingForAJobDescription'>
-              Looking for a job description
-            </label>
-            <Field
-              name='lookingForAJobDescription'
-              id='lookingForAJobDescription'
-              type='text'
-            />
-            <ErrorMessage
-              name='lookingForAJobDescription'
-              component={TextError}
-            />
-          </div>
+            <div className={s.formControl}>
+              <label className={s.formLabel} htmlFor='github'>
+                Github
+              </label>
+              <Field
+                className={s.formInput}
+                name='contacts.github'
+                id='github'
+                type='text'
+              />
+              <ErrorMessage name='contacts.github' component={TextError} />
+            </div>
 
-          <div className={s.formControl}>
-            <label htmlFor='github'>Github</label>
-            <Field name='contacts.github' id='github' type='text' />
-            <ErrorMessage name='contacts.github' component={TextError} />
-          </div>
+            <div className={s.formControl}>
+              <label className={s.formLabel} htmlFor='vk'>
+                vk
+              </label>
+              <Field
+                className={s.formInput}
+                name='contacts.vk'
+                id='vk'
+                type='text'
+              />
+              <ErrorMessage name='contacts.vk' component={TextError} />
+            </div>
 
-          <div className={s.formControl}>
-            <label htmlFor='vk'>vk</label>
-            <Field name='contacts.vk' id='vk' type='text' />
-            <ErrorMessage name='contacts.vk' component={TextError} />
-          </div>
+            <div className={s.formControl}>
+              <label className={s.formLabel} htmlFor='facebook'>
+                facebook
+              </label>
+              <Field
+                className={s.formInput}
+                name='contacts.facebook'
+                id='facebook'
+                type='text'
+              />
+              <ErrorMessage name='contacts.facebook' component={TextError} />
+            </div>
 
-          <div className={s.formControl}>
-            <label htmlFor='facebook'>facebook</label>
-            <Field name='contacts.facebook' id='facebook' type='text' />
-            <ErrorMessage name='contacts.facebook' component={TextError} />
-          </div>
+            <div className={s.formControl}>
+              <label className={s.formLabel} htmlFor='instagram'>
+                instagram
+              </label>
+              <Field
+                className={s.formInput}
+                name='contacts.instagram'
+                id='instagram'
+                type='text'
+              />
+              <ErrorMessage name='contacts.instagram' component={TextError} />
+            </div>
 
-          <div className={s.formControl}>
-            <label htmlFor='instagram'>instagram</label>
-            <Field name='contacts.instagram' id='instagram' type='text' />
-            <ErrorMessage name='contacts.instagram' component={TextError} />
-          </div>
+            <div className={s.formControl}>
+              <label className={s.formLabel} htmlFor='twitter'>
+                twitter
+              </label>
+              <Field
+                className={s.formInput}
+                name='contacts.twitter'
+                id='twitter'
+                type='text'
+              />
+              <ErrorMessage name='contacts.twitter' component={TextError} />
+            </div>
 
-          <div className={s.formControl}>
-            <label htmlFor='twitter'>twitter</label>
-            <Field name='contacts.twitter' id='twitter' type='text' />
-            <ErrorMessage name='contacts.twitter' component={TextError} />
-          </div>
+            <div className={s.formControl}>
+              <label className={s.formLabel} htmlFor='website'>
+                website
+              </label>
+              <Field
+                className={s.formInput}
+                name='contacts.website'
+                id='website'
+                type='text'
+              />
+              <ErrorMessage name='contacts.website' component={TextError} />
+            </div>
 
-          <div className={s.formControl}>
-            <label htmlFor='website'>website</label>
-            <Field name='contacts.website' id='website' type='text' />
-            <ErrorMessage name='contacts.website' component={TextError} />
-          </div>
+            <div className={s.formControl}>
+              <label className={s.formLabel} htmlFor='youtube'>
+                youtube
+              </label>
+              <Field
+                className={s.formInput}
+                name='contacts.youtube'
+                id='youtube'
+                type='text'
+              />
+              <ErrorMessage name='contacts.youtube' component={TextError} />
+            </div>
 
-          <div className={s.formControl}>
-            <label htmlFor='youtube'>youtube</label>
-            <Field name='contacts.youtube' id='youtube' type='text' />
-            <ErrorMessage name='contacts.youtube' component={TextError} />
-          </div>
-
-          <div className={s.formControl}>
-            <label htmlFor='mainLink'>mainLink</label>
-            <Field name='contacts.mainLink' id='mainLink' type='text' />
-            <ErrorMessage name='contacts.mainLink' component={TextError} />
-          </div>
-          <p>{props.status}</p>
-          <button type='submit'>Submit</button>
-        </Form>
-      )}
-    </Formik>
+            <div className={s.formControl}>
+              <label className={s.formLabel} htmlFor='mainLink'>
+                mainLink
+              </label>
+              <Field
+                className={s.formInput}
+                name='contacts.mainLink'
+                id='mainLink'
+                type='text'
+              />
+              <ErrorMessage name='contacts.mainLink' component={TextError} />
+            </div>
+            <p>{props.status}</p>
+            <button type='submit'>Save</button>
+          </Form>
+        )}
+      </Formik>
+      <button
+        onClick={() => {
+          props.setEditMode(false);
+        }}
+      >
+        Back
+      </button>
+    </div>
   );
 };
 

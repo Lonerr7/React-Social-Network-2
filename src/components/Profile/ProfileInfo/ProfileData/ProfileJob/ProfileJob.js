@@ -19,7 +19,7 @@ const ProfileJob = (props) => {
           <p>Job description:</p>
           <p>
             {props.userProfile.lookingForAJob
-              ? props.userProfile.jobDescription
+              ? props.userProfile.lookingForAJobDescription
               : `---------`}
           </p>
         </div>

@@ -9,7 +9,7 @@
 
 .profileInfo__descriptionBox {
   padding: 20px;
-  width: 30%;
+  width: 40%;
 }
 
 .profileInfo__description {
@@ -23,7 +23,9 @@
 }
 
 .avatar {
-  width: 100%;
+  // width: 100%;
+  display: block;
+  margin: 0 auto;
 }
 
 .jobStatusImg {

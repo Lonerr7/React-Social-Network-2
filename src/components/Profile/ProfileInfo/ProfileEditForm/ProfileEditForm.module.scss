@@ -1,0 +1,23 @@
+.formControl {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.formControl_checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.formLabel {
+  margin-bottom: 5px;
+  margin-right: 35px;
+}
+
+.formInput {
+  width: 100%;
+  padding: 7px 10px;
+  font-size: 15px;
+}
