@@ -5,10 +5,10 @@ import s from './ProfileEditForm.module.scss';
 import TextError from './TextError/TextError';
 
 const ProfileEditForm = (props) => {
-  debugger
   const initialValues = {
     fullName: '',
-    lookingForAJob: '',
+    aboutMe: '',
+    lookingForAJob: false,
     lookingForAJobDescription: '',
     contacts: {
       github: '',
@@ -38,9 +38,10 @@ const ProfileEditForm = (props) => {
     }),
   });
 
-  const onSubmit = ( { setSubmitting, setStatus }) => {
+  const onSubmit = (values, { setSubmitting, setStatus }) => {
+    console.log(values);
+    props.updateProfileInfo(values, props.userId);
     props.setEditMode(false);
-
     setSubmitting(false);
   };
 
@@ -59,10 +60,19 @@ const ProfileEditForm = (props) => {
           </div>
 
           <div className={s.formControl}>
-            <label htmlFor='lookingForAJob'>Looking for a job</label>
-            <Field name='lookingForAJob' id='lookingForAJob' type='text' />
-            <ErrorMessage name='lookingForAJob' component={TextError} />
+            <label className={s.loginPage__formLabel} htmlFor='lookingForAJob'>
+              Looking for a job
+            </label>
+            <Field name='lookingForAJob' id='lookingForAJob' type='checkbox' />
           </div>
+
+          <div className={s.formControl}>
+            <label className={s.loginPage__formLabel} htmlFor='aboutMe'>
+              About Me
+            </label>
+            <Field name='aboutMe' id='aboutMe' type='text' />
+          </div>
+
 
           <div className={s.formControl}>
             <label htmlFor='lookingForAJobDescription'>

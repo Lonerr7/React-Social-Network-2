@@ -12,7 +12,7 @@ const ProfileJob = (props) => {
           <img
             className={s.jobStatusImg}
             src={props.userProfile.lookingForAJob ? tick : cross}
-            alt=""
+            alt=''
           />
         </div>
         <div className={s.lookingForAJobDescrContanier}>

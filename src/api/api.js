@@ -46,7 +46,7 @@ export const profileAPI = {
   },
 
   updateProfileInfo(newProfileInfo) {
-    return axiosInstance.put(`/profile`, { newProfileInfo });
+    return axiosInstance.put(`/profile`, { ...newProfileInfo });
   },
 };
 

@@ -1,7 +1,6 @@
 import s from './ProfileInfo.module.scss';
 import Preloader from '../../common/Preloader/Preloader';
 import { useState } from 'react';
-import ProfileEditForm from './ProfileEditForm/ProfileEditForm';
 import ProfileData from './ProfileData/ProfileData';
 import ProfileEditFormContainer from './ProfileEditForm/ProfileEditFormContainer';
 
@@ -35,6 +34,7 @@ const ProfileInfo = (props) => {
             <ProfileEditFormContainer
               editMode={editMode}
               setEditMode={setEditMode}
+              userId={props.userId}
             />
           ) : (
             <ProfileData {...props} />
