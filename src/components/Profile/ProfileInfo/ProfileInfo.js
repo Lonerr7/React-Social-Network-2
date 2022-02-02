@@ -30,7 +30,7 @@ const ProfileInfo = (props) => {
             </button>
           )}
 
-          {editMode ? <ProfileEditForm /> : <ProfileData {...props} />}
+          {editMode ? <ProfileEditForm editMode={editMode} setEditMode={setEditMode} /> : <ProfileData {...props} />}
         </div>
       </div>
     </div>
