@@ -76,7 +76,7 @@ const LoginForm = (props) => {
                   className={s.loginPage__formInput}
                   name='captcha'
                   id='captcha'
-                  type='captcha'
+                  type='text'
                 />
               </div>
               <ErrorMessage name='captcha' component={Error} />

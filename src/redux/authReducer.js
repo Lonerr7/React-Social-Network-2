@@ -20,6 +20,7 @@ const authReducer = (state = initialState, action) => {
         email: action.email,
         login: action.login,
         isAuth: action.isAuth,
+        captchaURL: '',
       };
     case SET_CAPTCHA_URL:
       return {
@@ -49,7 +50,6 @@ export const getCaptchaUrlAC = (captchaURL) => ({
 export const getCaptchaUrlTC = () => async (dispatch) => {
   try {
     const response = await authAPI.getCaptcha();
-    console.log(response);
     dispatch(getCaptchaUrlAC(response.data.url));
   } catch (error) {
     console.error(error);
