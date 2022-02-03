@@ -12,6 +12,7 @@ const Profile = (props) => {
         isOwner={props.isOwner}
         uploadPhoto={props.uploadPhoto}
         userId={props.userId}
+        errorMessage={props.errorMessage}
       />
       <MyPostsContainer />
     </div>

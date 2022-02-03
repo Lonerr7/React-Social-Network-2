@@ -5,7 +5,7 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
 const UPLOAD_PHOTO = 'UPLOAD_PHOTO';
-const UPDATE_PROFILE_INFO = 'UPDATE_PROFILE_INFO';
+const DISPLAY_ERROR_MESSAGE = 'DISPLAY_ERROR_MESSAGE';
 
 const initialState = {
   posts: [
@@ -15,6 +15,7 @@ const initialState = {
   newPostText: '',
   userProfile: null,
   status: '',
+  errorMessage: '',
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -51,9 +52,10 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         userProfile: { ...state.userProfile, photos: action.photos },
       };
-    case UPDATE_PROFILE_INFO:
+    case DISPLAY_ERROR_MESSAGE:
       return {
         ...state,
+        errorMessage: action.errorMessage,
       };
     default:
       return state;
@@ -85,6 +87,11 @@ const uploadPhotoAC = (photos) => ({
   photos,
 });
 
+const displayErrorMessageAC = (errorMessage) => ({
+  type: DISPLAY_ERROR_MESSAGE,
+  errorMessage,
+});
+
 export const setUserProfileTC = (userId) => async (dispatch) => {
   try {
     const response = await profileAPI.getUserProfile(userId);
@@ -103,12 +110,21 @@ export const getProfileStatusTC = (userId) => async (dispatch) => {
   }
 };
 
+export const displayErrorMessageTC = (errorMessage) => (dispatch) => {
+  dispatch(displayErrorMessageAC(errorMessage));
+  setTimeout(() => {
+    dispatch(displayErrorMessageAC(''));
+  }, 6000);
+};
+
 export const updateProfileStatusTC = (status) => async (dispatch) => {
   try {
     const response = await profileAPI.updateProfileStatus(status);
     if (response.data.resultCode === 0) dispatch(setProfileStatusAC(status));
+    if (response.data.resultCode === 1)
+      throw new Error(response.data.messages[0]);
   } catch (error) {
-    console.error(error);
+    dispatch(displayErrorMessageTC(error.message));
   }
 };
 

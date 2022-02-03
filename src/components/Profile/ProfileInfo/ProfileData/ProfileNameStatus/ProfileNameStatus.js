@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import defAvatar from '../../../../../images/default-avatar.png';
+import ErrorMessage from '../../../../common/ErrorMessage/ErrorMessage';
 import s from '../../ProfileInfo.module.scss';
 
 const ProfileNameStatus = (props) => {
@@ -26,7 +27,7 @@ const ProfileNameStatus = (props) => {
   const onPhotoUpload = (e) => {
     if (e.target.files.length > 0) {
       const photo = e.target.files[0];
-      props.uploadPhoto(photo)
+      props.uploadPhoto(photo);
     }
   };
 
@@ -54,6 +55,9 @@ const ProfileNameStatus = (props) => {
             value={localStatus}
             onChange={onLocalStatusChange}
           />
+        )}
+        {props.errorMessage && (
+          <ErrorMessage>{props.errorMessage}</ErrorMessage>
         )}
       </div>
     </div>

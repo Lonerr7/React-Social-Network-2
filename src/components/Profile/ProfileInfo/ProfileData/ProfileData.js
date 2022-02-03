@@ -13,6 +13,7 @@ const ProfileData = (props) => {
         updateProfileStatus={props.updateProfileStatus}
         isOwner={props.isOwner}
         uploadPhoto={props.uploadPhoto}
+        errorMessage={props.errorMessage}
       />
       <ProfileJob userProfile={props.userProfile} />
       {Object.keys(contacts).map((key) => (

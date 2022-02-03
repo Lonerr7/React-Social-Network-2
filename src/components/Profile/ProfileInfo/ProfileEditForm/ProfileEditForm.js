@@ -38,7 +38,7 @@ const ProfileEditForm = (props) => {
     }),
   });
 
-  const onSubmit = (values, { setSubmitting, setStatus }) => {
+  const onSubmit = (values, { setSubmitting }) => {
     props.updateProfileInfo(values, props.userId);
     props.setEditMode(false);
     setSubmitting(false);
@@ -83,7 +83,6 @@ const ProfileEditForm = (props) => {
                 Looking for a job
               </label>
               <Field
-                
                 name='lookingForAJob'
                 id='lookingForAJob'
                 type='checkbox'

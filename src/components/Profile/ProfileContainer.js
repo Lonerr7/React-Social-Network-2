@@ -13,7 +13,6 @@ import Profile from './Profile';
 
 const ProfileContainer = (props) => {
   const match = useMatch(`/profile/:userId`);
-  console.log(match);
   const userId = match ? match.params.userId : props.userId;
 
   useEffect(() => {
@@ -29,6 +28,7 @@ const ProfileContainer = (props) => {
       isOwner={userId === props.userId}
       uploadPhoto={props.uploadPhoto}
       userId={userId}
+      errorMessage={props.errorMessage}
     />
   );
 };
@@ -37,6 +37,7 @@ const mapStateToProps = (state) => ({
   userProfile: state.profilePage.userProfile,
   status: state.profilePage.status,
   userId: state.auth.id,
+  errorMessage: state.profilePage.errorMessage
 });
 
 const dispatchToProps = {
