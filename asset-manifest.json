@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/Lonerr7/React-Social-Network-2/static/css/main.77d28399.css",
-    "main.js": "/Lonerr7/React-Social-Network-2/static/js/main.cbdd27d0.js",
-    "static/js/748.3364d925.chunk.js": "/Lonerr7/React-Social-Network-2/static/js/748.3364d925.chunk.js",
-    "static/js/928.487c4048.chunk.js": "/Lonerr7/React-Social-Network-2/static/js/928.487c4048.chunk.js",
-    "static/js/596.427ea093.chunk.js": "/Lonerr7/React-Social-Network-2/static/js/596.427ea093.chunk.js",
-    "static/media/tick.png": "/Lonerr7/React-Social-Network-2/static/media/tick.738637aad3af9025ab8a.png",
-    "static/media/cross.png": "/Lonerr7/React-Social-Network-2/static/media/cross.fadca3619fa471d6af20.png",
-    "static/media/logo.png": "/Lonerr7/React-Social-Network-2/static/media/logo.f24bafd7a7882bcb4083.png",
-    "static/media/preloader.gif": "/Lonerr7/React-Social-Network-2/static/media/preloader.757857ce13a4e4e598e4.gif",
-    "index.html": "/Lonerr7/React-Social-Network-2/index.html",
-    "main.77d28399.css.map": "/Lonerr7/React-Social-Network-2/static/css/main.77d28399.css.map",
-    "main.cbdd27d0.js.map": "/Lonerr7/React-Social-Network-2/static/js/main.cbdd27d0.js.map",
-    "748.3364d925.chunk.js.map": "/Lonerr7/React-Social-Network-2/static/js/748.3364d925.chunk.js.map",
-    "928.487c4048.chunk.js.map": "/Lonerr7/React-Social-Network-2/static/js/928.487c4048.chunk.js.map",
-    "596.427ea093.chunk.js.map": "/Lonerr7/React-Social-Network-2/static/js/596.427ea093.chunk.js.map"
+    "main.css": "/React-Social-Network-2/static/css/main.77d28399.css",
+    "main.js": "/React-Social-Network-2/static/js/main.2f297422.js",
+    "static/js/748.3364d925.chunk.js": "/React-Social-Network-2/static/js/748.3364d925.chunk.js",
+    "static/js/928.487c4048.chunk.js": "/React-Social-Network-2/static/js/928.487c4048.chunk.js",
+    "static/js/596.427ea093.chunk.js": "/React-Social-Network-2/static/js/596.427ea093.chunk.js",
+    "static/media/tick.png": "/React-Social-Network-2/static/media/tick.738637aad3af9025ab8a.png",
+    "static/media/cross.png": "/React-Social-Network-2/static/media/cross.fadca3619fa471d6af20.png",
+    "static/media/logo.png": "/React-Social-Network-2/static/media/logo.f24bafd7a7882bcb4083.png",
+    "static/media/preloader.gif": "/React-Social-Network-2/static/media/preloader.757857ce13a4e4e598e4.gif",
+    "index.html": "/React-Social-Network-2/index.html",
+    "main.77d28399.css.map": "/React-Social-Network-2/static/css/main.77d28399.css.map",
+    "main.2f297422.js.map": "/React-Social-Network-2/static/js/main.2f297422.js.map",
+    "748.3364d925.chunk.js.map": "/React-Social-Network-2/static/js/748.3364d925.chunk.js.map",
+    "928.487c4048.chunk.js.map": "/React-Social-Network-2/static/js/928.487c4048.chunk.js.map",
+    "596.427ea093.chunk.js.map": "/React-Social-Network-2/static/js/596.427ea093.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.77d28399.css",
-    "static/js/main.cbdd27d0.js"
+    "static/js/main.2f297422.js"
   ]
 }
