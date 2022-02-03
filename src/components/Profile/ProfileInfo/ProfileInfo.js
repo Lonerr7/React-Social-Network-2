@@ -1,4 +1,4 @@
-import s from './ProfileInfo.module.scss';
+import s from './ProfileInfo.module.scss'
 import Preloader from '../../common/Preloader/Preloader';
 import { useState } from 'react';
 import ProfileData from './ProfileData/ProfileData';
