@@ -1,4 +1,5 @@
 import { profileAPI } from '../api/api';
+import { PostType, ProfileType, PhotosType } from '../types/types';
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
@@ -7,42 +8,13 @@ const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
 const UPLOAD_PHOTO = 'UPLOAD_PHOTO';
 const DISPLAY_ERROR_MESSAGE = 'DISPLAY_ERROR_MESSAGE';
 
-type PostType = {
-  id: number;
-  postMessage: string;
-  likesCount: number;
-};
-type ContactsType = {
-  github: string;
-  vk: string;
-  facebook: string;
-  instagram: string;
-  twitter: string;
-  website: string;
-  youtube: string;
-  mainLink: string;
-};
-type PhotosType = {
-  small: string | null;
-  large: string | null;
-};
-
-type PorfileType = {
-  userId: number;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  fullName: string;
-  contacts: ContactsType;
-  photos?: PhotosType;
-};
-
 const initialState = {
   posts: [
     { id: 1, postMessage: 'Hi, how are u', likesCount: 10 },
     { id: 2, postMessage: "It's my first post", likesCount: 10 },
   ] as Array<PostType>,
   newPostText: '',
-  userProfile: null as PorfileType | null,
+  userProfile: null as ProfileType | null,
   status: '',
   errorMessage: '',
 };
@@ -84,7 +56,10 @@ const profileReducer = (
     case UPLOAD_PHOTO:
       return {
         ...state,
-        userProfile: { ...state.userProfile, photos: action.photos } as PorfileType,
+        userProfile: {
+          ...state.userProfile,
+          photos: action.photos,
+        } as ProfileType,
       };
     case DISPLAY_ERROR_MESSAGE:
       return {
@@ -118,10 +93,10 @@ export const updateNewPostTextAC = (
 
 type SetUserProfileActionType = {
   type: typeof SET_USER_PROFILE;
-  userProfile: PorfileType;
+  userProfile: ProfileType;
 };
 export const setUserProfileAC = (
-  userProfile: PorfileType
+  userProfile: ProfileType
 ): SetUserProfileActionType => ({
   type: SET_USER_PROFILE,
   userProfile,
@@ -207,7 +182,7 @@ export const uploadPhotoTC = (photo: any) => async (dispatch: any) => {
 };
 
 export const updateProfileInfoTC =
-  (newProfileInfo: PorfileType, userId: number) => async (dispatch: any) => {
+  (newProfileInfo: ProfileType, userId: number) => async (dispatch: any) => {
     try {
       const response = await profileAPI.updateProfileInfo(newProfileInfo);
 
