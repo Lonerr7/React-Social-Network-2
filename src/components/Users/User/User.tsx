@@ -1,8 +1,21 @@
 import { NavLink } from 'react-router-dom';
 import s from '../Users.module.scss';
 import defAvatar from '../../../images/default-avatar.png';
+import { PhotosType } from '../../../types/types';
+import React from 'react';
 
-const User = ({
+type PropsType = {
+  id: number;
+  name: string;
+  status: string | null;
+  photos: PhotosType;
+  followed: boolean;
+  onFollowClick: (id: number) => void;
+  onUnfollowClick: (id: number) => void;
+  followingInProgress: Array<number>;
+};
+
+const User: React.FC<PropsType> = ({
   id,
   name,
   status,
@@ -19,15 +32,17 @@ const User = ({
           <img
             className={s.user__avatar_big}
             src={!photos.large ? defAvatar : photos.large}
-            alt="avatar"
+            alt='avatar'
           />
         </NavLink>
       </div>
-      <NavLink to={`/profile/${id}`} className={s.user__name}>{name}</NavLink>
+      <NavLink to={`/profile/${id}`} className={s.user__name}>
+        {name}
+      </NavLink>
       <p className={s.user__status}>{status ? status : '------'}</p>
       {followed ? (
         <button
-        className={s.userBtn}
+          className={s.userBtn}
           onClick={() => {
             onUnfollowClick(id);
           }}
@@ -37,7 +52,7 @@ const User = ({
         </button>
       ) : (
         <button
-        className={s.userBtn}
+          className={s.userBtn}
           onClick={() => {
             onFollowClick(id);
           }}

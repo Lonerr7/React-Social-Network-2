@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { RootStateType } from '../../redux/redux-store';
 import { followTC, getUsersTC, unfollowTC } from '../../redux/usersReducer';
 import {
   getCurrentPage,
@@ -9,11 +10,28 @@ import {
   getTotalUsersCount,
   getUsersSuperSelector,
 } from '../../redux/usersSelectors';
+import { UserType } from '../../types/types';
 import Preloader from '../common/Preloader/Preloader';
 import Users from './Users';
 import s from './Users.module.scss';
 
-const UsersContainer = ({
+type MapStateType = {
+  users: Array<UserType>;
+  pageLength: number;
+  currentPage: number;
+  totalUsersCount: number;
+  isFetching: boolean;
+  followingInProgress: Array<number>;
+};
+type MapDispatchType = {
+  follow: (id: number) => void;
+  getUsers: (currentPage: number, pageLength: number) => void;
+  unfollow: (id: number) => void;
+};
+
+type PropsType = MapStateType & MapDispatchType;
+
+const UsersContainer: React.FC<PropsType> = ({
   users,
   follow,
   getUsers,
@@ -28,15 +46,15 @@ const UsersContainer = ({
     getUsers(currentPage, pageLength);
   }, []);
 
-  const onFollowClick = (id) => {
+  const onFollowClick = (id: number) => {
     follow(id);
   };
 
-  const onUnfollowClick = (id) => {
+  const onUnfollowClick = (id: number) => {
     unfollow(id);
   };
 
-  const onPageChanged = (page) => {
+  const onPageChanged = (page: number) => {
     getUsers(page, pageLength);
   };
 
@@ -51,14 +69,13 @@ const UsersContainer = ({
         currentPage={currentPage}
         totalUsersCount={totalUsersCount}
         onPageChanged={onPageChanged}
-        isFetching={isFetching}
         followingInProgress={followingInProgress}
       />
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootStateType): MapStateType => ({
   users: getUsersSuperSelector(state),
   currentPage: getCurrentPage(state),
   totalUsersCount: getTotalUsersCount(state),
@@ -73,4 +90,7 @@ const dispatchToProps = {
   getUsers: getUsersTC,
 };
 
-export default connect(mapStateToProps, dispatchToProps)(UsersContainer);
+export default connect<MapStateType, MapDispatchType, {}, RootStateType>(
+  mapStateToProps,
+  dispatchToProps
+)(UsersContainer);

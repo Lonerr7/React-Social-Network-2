@@ -2,7 +2,14 @@ import React from 'react';
 import s from './Paginator.module.scss';
 import Pagination from 'react-js-pagination';
 
-const Paginator = (props) => {
+type PropsType = {
+  currentPage: number;
+  onPageChanged: (page: number) => void;
+  pageLength: number;
+  totalUsersCount: number;
+};
+
+const Paginator: React.FC<PropsType> = (props) => {
   const totalPagesCount = Math.ceil(props.totalUsersCount / props.pageLength);
 
   const pageNumbers = [];
