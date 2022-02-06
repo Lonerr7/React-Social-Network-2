@@ -28,8 +28,9 @@ type MapDispatchType = {
   getUsers: (currentPage: number, pageLength: number) => void;
   unfollow: (id: number) => void;
 };
+type OwnPropsType = {};
 
-type PropsType = MapStateType & MapDispatchType;
+type PropsType = MapStateType & MapDispatchType & OwnPropsType;
 
 const UsersContainer: React.FC<PropsType> = ({
   users,
@@ -90,7 +91,7 @@ const dispatchToProps = {
   getUsers: getUsersTC,
 };
 
-export default connect<MapStateType, MapDispatchType, {}, RootStateType>(
+export default connect<MapStateType, MapDispatchType, OwnPropsType, RootStateType>(
   mapStateToProps,
   dispatchToProps
 )(UsersContainer);
