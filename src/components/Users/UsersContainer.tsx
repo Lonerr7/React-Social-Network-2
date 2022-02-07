@@ -91,7 +91,12 @@ const dispatchToProps = {
   getUsers: getUsersTC,
 };
 
-export default connect<MapStateType, MapDispatchType, OwnPropsType, RootStateType>(
+export default connect<
+  MapStateType,
+  MapDispatchType,
+  OwnPropsType,
+  RootStateType
+>(
   mapStateToProps,
   dispatchToProps
 )(UsersContainer);

@@ -1,12 +1,14 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import React from 'react';
 import * as yup from 'yup';
+import { LoginPropsType, LogInType } from '../Login';
 import s from '../Login.module.scss';
 import Error from './TextError/TextError';
 
-const LoginForm = (props) => {
+const LoginForm: React.FC<LoginPropsType> = (props) => {
   const captchaURL = props.captchaURL;
 
-  const initialValues = {
+  const initialValues: LogInType = {
     email: '',
     password: '',
     rememberMe: false,
@@ -18,7 +20,7 @@ const LoginForm = (props) => {
     password: yup.string().required(`Required`),
   });
 
-  const onSubmit = (values, { setSubmitting, setStatus }) => {
+  const onSubmit = (values: LogInType, { setSubmitting, setStatus }: any) => {
     props.logIn(values, setStatus);
     setSubmitting(false);
   };

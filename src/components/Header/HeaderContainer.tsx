@@ -34,4 +34,12 @@ const dispatchToProps = {
   logOut: logOutTC,
 };
 
-export default connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, RootStateType>(mapStateToProps, dispatchToProps)(HeaderContainer);
+export default connect<
+  MapStatePropsType,
+  MapDispatchPropsType,
+  OwnPropsType,
+  RootStateType
+>(
+  mapStateToProps,
+  dispatchToProps
+)(HeaderContainer);

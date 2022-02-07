@@ -10,7 +10,7 @@ const initialState = {
   login: null as string | null,
   email: null as string | null,
   isAuth: false,
-  captchaURL: '' as string | null,
+  captchaURL: '' as string,
 };
 
 const authReducer = (state = initialState, action: any): InitialStateType => {
@@ -98,7 +98,7 @@ type LoginInfoType = {
 };
 
 export const logInTC =
-  (loginInfo: LoginInfoType, setStatus: Function) => async (dispatch: any) => {
+  (loginInfo: LoginInfoType, setStatus: any) => async (dispatch: any) => {
     try {
       const response = await authAPI.logIn(loginInfo);
 
