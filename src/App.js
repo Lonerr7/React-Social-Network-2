@@ -26,7 +26,7 @@ const App = (props) => {
     <BrowserRouter>
       <div className='app-wrapper'>
         <HeaderContainer />
-        <Navbar sidebar={props.state.sidebar} />
+        <Navbar />
         <div className='app-wrapper__content'>
           <React.Suspense fallback={<Preloader />}>
             <Routes>

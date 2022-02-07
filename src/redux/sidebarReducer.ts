@@ -18,12 +18,20 @@ const initialState = {
   ],
 };
 
-export type InitialStateType = typeof initialState;
+export type FriendType = {
+  id: number;
+  name: string;
+  avatar: string;
+};
+
+export type InitialSidebarStateType = {
+  friends: Array<FriendType>;
+};
 
 const sidebarReducer = (
   state = initialState,
   action: any
-): InitialStateType => {
+): InitialSidebarStateType => {
   return state;
 };
 
