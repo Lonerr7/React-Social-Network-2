@@ -1,4 +1,6 @@
+import { ThunkAction } from 'redux-thunk';
 import { authAPI } from '../api/api';
+import { RootStateType } from './redux-store';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
@@ -13,7 +15,10 @@ const initialState = {
   captchaURL: '' as string,
 };
 
-const authReducer = (state = initialState, action: any): InitialStateType => {
+const authReducer = (
+  state = initialState,
+  action: ActionTypes
+): InitialStateType => {
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -34,6 +39,8 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
   }
 };
 
+type ActionTypes = SetUserDataActionType | GetCaptchaUrlActionType;
+
 type SetUserDataActionType = {
   type: typeof SET_USER_DATA;
   id: number | null;
@@ -41,7 +48,6 @@ type SetUserDataActionType = {
   email: string | null;
   isAuth: boolean;
 };
-
 export const setUserDataAC = (
   id: number | null,
   login: string | null,
@@ -61,7 +67,6 @@ type GetCaptchaUrlActionType = {
   type: typeof SET_CAPTCHA_URL;
   captchaURL: string;
 };
-
 export const getCaptchaUrlAC = (
   captchaURL: string
 ): GetCaptchaUrlActionType => ({
@@ -69,7 +74,14 @@ export const getCaptchaUrlAC = (
   captchaURL,
 });
 
-export const getCaptchaUrlTC = () => async (dispatch: any) => {
+type ThunkType = ThunkAction<
+  Promise<void>,
+  RootStateType,
+  unknown,
+  ActionTypes
+>;
+
+export const getCaptchaUrlTC = (): ThunkType => async (dispatch) => {
   try {
     const response = await authAPI.getCaptcha();
     dispatch(getCaptchaUrlAC(response.data.url));
@@ -78,7 +90,7 @@ export const getCaptchaUrlTC = () => async (dispatch: any) => {
   }
 };
 
-export const getAuthUserDataTC = () => async (dispatch: any) => {
+export const getAuthUserDataTC = (): ThunkType => async (dispatch) => {
   try {
     const response = await authAPI.authMe();
 
@@ -98,7 +110,8 @@ type LoginInfoType = {
 };
 
 export const logInTC =
-  (loginInfo: LoginInfoType, setStatus: any) => async (dispatch: any) => {
+  (loginInfo: LoginInfoType, setStatus: (status?: any) => void): ThunkType =>
+  async (dispatch) => {
     try {
       const response = await authAPI.logIn(loginInfo);
 
@@ -114,7 +127,7 @@ export const logInTC =
     }
   };
 
-export const logOutTC = () => async (dispatch: any) => {
+export const logOutTC = (): ThunkType => async (dispatch) => {
   try {
     const response = await authAPI.logOut();
 

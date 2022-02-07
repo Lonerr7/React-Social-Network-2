@@ -1,3 +1,6 @@
+// import { ThunkAction } from "redux-thunk";
+// import { RootStateType } from "../redux/redux-store";
+
 export type PostType = {
   id: number;
   postMessage: string;
@@ -36,3 +39,10 @@ export type UserType = {
   photos: PhotosType;
   followed: boolean;
 };
+
+// export type ThunkType = ThunkAction<
+//   Promise<void>,
+//   RootStateType,
+//   unknown,
+//   ActionTypes
+// >;

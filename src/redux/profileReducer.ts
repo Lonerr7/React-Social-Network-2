@@ -1,5 +1,7 @@
+import { ThunkAction } from 'redux-thunk';
 import { profileAPI } from '../api/api';
 import { PostType, ProfileType, PhotosType } from '../types/types';
+import { RootStateType } from './redux-store';
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
@@ -23,7 +25,7 @@ export type InitialStateType = typeof initialState;
 
 const profileReducer = (
   state = initialState,
-  action: any
+  action: ActionTypes
 ): InitialStateType => {
   switch (action.type) {
     case ADD_POST:
@@ -70,6 +72,14 @@ const profileReducer = (
       return state;
   }
 };
+
+type ActionTypes =
+  | AddPostActionType
+  | UpdateNewPostTextActionType
+  | SetUserProfileActionType
+  | SetProfileStatusActionType
+  | UploadPhotoActionType
+  | DisplayErrorMessageActionType;
 
 type AddPostActionType = {
   type: typeof ADD_POST;
@@ -133,26 +143,38 @@ const displayErrorMessageAC = (
   errorMessage,
 });
 
-export const setUserProfileTC = (userId: number) => async (dispatch: any) => {
-  try {
-    const response = await profileAPI.getUserProfile(userId);
-    dispatch(setUserProfileAC(response.data));
-  } catch (error) {
-    console.error(error);
-  }
-};
+type ThunkType = ThunkAction<
+  Promise<void>,
+  RootStateType,
+  unknown,
+  ActionTypes
+>;
 
-export const getProfileStatusTC = (userId: number) => async (dispatch: any) => {
-  try {
-    const response = await profileAPI.getProfileStatus(userId);
-    dispatch(setProfileStatusAC(response.data));
-  } catch (error) {
-    console.error(error);
-  }
-};
+export const setUserProfileTC =
+  (userId: number): ThunkType =>
+  async (dispatch) => {
+    try {
+      const response = await profileAPI.getUserProfile(userId);
+      dispatch(setUserProfileAC(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+export const getProfileStatusTC =
+  (userId: number): ThunkType =>
+  async (dispatch) => {
+    try {
+      const response = await profileAPI.getProfileStatus(userId);
+      dispatch(setProfileStatusAC(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 export const displayErrorMessageTC =
-  (errorMessage: string) => (dispatch: any) => {
+  (errorMessage: string): ThunkType =>
+  async (dispatch) => {
     dispatch(displayErrorMessageAC(errorMessage));
     setTimeout(() => {
       dispatch(displayErrorMessageAC(''));
@@ -160,7 +182,8 @@ export const displayErrorMessageTC =
   };
 
 export const updateProfileStatusTC =
-  (status: string) => async (dispatch: any) => {
+  (status: string): ThunkType =>
+  async (dispatch) => {
     try {
       const response = await profileAPI.updateProfileStatus(status);
       if (response.data.resultCode === 0) dispatch(setProfileStatusAC(status));
@@ -171,18 +194,22 @@ export const updateProfileStatusTC =
     }
   };
 
-export const uploadPhotoTC = (photo: any) => async (dispatch: any) => {
-  try {
-    const response = await profileAPI.uploadPhoto(photo);
-    console.log(response);
+export const uploadPhotoTC =
+  (photo: any): ThunkType =>
+  async (dispatch) => {
+    try {
+      const response = await profileAPI.uploadPhoto(photo);
 
-    if (response.data.resultCode === 0)
-      dispatch(uploadPhotoAC(response.data.data.photos));
-  } catch (error) {}
-};
+      if (response.data.resultCode === 0)
+        dispatch(uploadPhotoAC(response.data.data.photos));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 export const updateProfileInfoTC =
-  (newProfileInfo: ProfileType, userId: number) => async (dispatch: any) => {
+  (newProfileInfo: ProfileType, userId: number): ThunkType =>
+  async (dispatch) => {
     try {
       const response = await profileAPI.updateProfileInfo(newProfileInfo);
 
