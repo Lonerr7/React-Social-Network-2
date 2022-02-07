@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import { authAPI } from '../api/api';
+import { authAPI, ResultCodeForCaptcha, ResultCodesEnum } from '../api/api';
 import { RootStateType } from './redux-store';
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -83,8 +83,8 @@ type ThunkType = ThunkAction<
 
 export const getCaptchaUrlTC = (): ThunkType => async (dispatch) => {
   try {
-    const response = await authAPI.getCaptcha();
-    dispatch(getCaptchaUrlAC(response.data.url));
+    const data = await authAPI.getCaptcha();
+    dispatch(getCaptchaUrlAC(data.url));
   } catch (error) {
     console.error(error);
   }
@@ -92,10 +92,10 @@ export const getCaptchaUrlTC = (): ThunkType => async (dispatch) => {
 
 export const getAuthUserDataTC = (): ThunkType => async (dispatch) => {
   try {
-    const response = await authAPI.authMe();
+    const meData = await authAPI.authMe();
 
-    const { id, login, email } = response.data.data;
-    if (response.data.resultCode === 0)
+    const { id, login, email } = meData.data;
+    if (meData.resultCode === ResultCodesEnum.Success)
       dispatch(setUserDataAC(id, login, email, true));
   } catch (error) {
     console.error(error);
@@ -113,14 +113,15 @@ export const logInTC =
   (loginInfo: LoginInfoType, setStatus: (status?: any) => void): ThunkType =>
   async (dispatch) => {
     try {
-      const response = await authAPI.logIn(loginInfo);
+      const data = await authAPI.logIn(loginInfo);
 
-      if (response.data.resultCode === 10) dispatch(getCaptchaUrlTC());
+      if (data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired)
+        dispatch(getCaptchaUrlTC());
 
-      if (response.data.resultCode === 0) {
+      if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(getAuthUserDataTC());
       } else {
-        setStatus(response.data.messages);
+        setStatus(data.messages);
       }
     } catch (error) {
       console.error(error);
@@ -129,9 +130,9 @@ export const logInTC =
 
 export const logOutTC = (): ThunkType => async (dispatch) => {
   try {
-    const response = await authAPI.logOut();
+    const data = await authAPI.logOut();
 
-    if (response.data.resultCode === 0) {
+    if (data.resultCode === ResultCodesEnum.Success) {
       dispatch(setUserDataAC(null, null, null, false));
     }
   } catch (error) {
