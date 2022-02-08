@@ -1,6 +1,8 @@
 // import { ThunkAction } from "redux-thunk";
 // import { RootStateType } from "../redux/redux-store";
 
+import { ResultCodesEnum } from '../api/api';
+
 export type PostType = {
   id: number;
   postMessage: string;
@@ -24,11 +26,12 @@ export type PhotosType = {
 };
 
 export type ProfileType = {
-  userId: number;
+  aboutMe?: string;
+  contacts: ContactsType;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
-  contacts: ContactsType;
+  userId: number;
   photos?: PhotosType;
 };
 
@@ -46,3 +49,4 @@ export type UserType = {
 //   unknown,
 //   ActionTypes
 // >;
+

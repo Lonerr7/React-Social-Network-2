@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { LogInType } from '../components/Login/Login';
-import { ProfileType, UserType } from '../types/types';
+import { PhotosType, ProfileType, UserType } from '../types/types';
 
 export enum ResultCodesEnum {
   Success = 0,
@@ -25,7 +25,7 @@ type GetUsersResponseType = {
 };
 type FollowUserResponseType = {
   resultCode: ResultCodesEnum;
-  messages: Array<String>;
+  messages: Array<string>;
   data: any;
 };
 export const usersAPI = {
@@ -46,31 +46,65 @@ export const usersAPI = {
   },
 };
 
+type GetUserProfileType = ProfileType;
+type GetProfileStatusType = string;
+type UpdateProfileStatusType = {
+  resultCode: ResultCodesEnum;
+  messages: Array<string>;
+  data: any;
+};
+type UploadPhotoResponseType = {
+  data: {
+    photos: PhotosType;
+  };
+  resultCode: ResultCodesEnum;
+  messages: Array<string>;
+};
+type UpdateProfileInfoResponseType = {
+  resultCode: ResultCodesEnum;
+  messages: Array<string>;
+  data: any;
+};
+
 export const profileAPI = {
   getUserProfile(userId: number) {
-    return axiosInstance.get(`profile/${userId}`);
+    return axiosInstance
+      .get<GetUserProfileType>(`profile/${userId}`)
+      .then((res) => res.data);
   },
 
   getProfileStatus(userId: number) {
-    return axiosInstance.get(`profile/status/${userId}`);
+    return axiosInstance
+      .get<GetProfileStatusType>(`profile/status/${userId}`)
+      .then((res) => res.data);
   },
 
   updateProfileStatus(status: string) {
-    return axiosInstance.put(`profile/status`, { status });
+    return axiosInstance
+      .put<UpdateProfileStatusType>(`profile/status`, {
+        status,
+      })
+      .then((res) => res.data);
   },
 
-  uploadPhoto(image: any) {
+  uploadPhoto(image: File) {
     const formData = new FormData();
     formData.append('image', image);
-    return axiosInstance.put(`profile/photo`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    return axiosInstance
+      .put<UploadPhotoResponseType>(`profile/photo`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((res) => res.data);
   },
 
   updateProfileInfo(newProfileInfo: ProfileType) {
-    return axiosInstance.put(`/profile`, { ...newProfileInfo });
+    return axiosInstance
+      .put<UpdateProfileInfoResponseType>(`/profile`, {
+        ...newProfileInfo,
+      })
+      .then((res) => res.data);
   },
 };
 

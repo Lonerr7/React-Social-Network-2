@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import { profileAPI } from '../api/api';
+import { profileAPI, ResultCodesEnum } from '../api/api';
 import { PostType, ProfileType, PhotosType } from '../types/types';
 import { RootStateType } from './redux-store';
 
@@ -154,8 +154,8 @@ export const setUserProfileTC =
   (userId: number): ThunkType =>
   async (dispatch) => {
     try {
-      const response = await profileAPI.getUserProfile(userId);
-      dispatch(setUserProfileAC(response.data));
+      const data = await profileAPI.getUserProfile(userId);
+      dispatch(setUserProfileAC(data));
     } catch (error) {
       console.error(error);
     }
@@ -165,8 +165,8 @@ export const getProfileStatusTC =
   (userId: number): ThunkType =>
   async (dispatch) => {
     try {
-      const response = await profileAPI.getProfileStatus(userId);
-      dispatch(setProfileStatusAC(response.data));
+      const data = await profileAPI.getProfileStatus(userId);
+      dispatch(setProfileStatusAC(data));
     } catch (error) {
       console.error(error);
     }
@@ -185,10 +185,11 @@ export const updateProfileStatusTC =
   (status: string): ThunkType =>
   async (dispatch) => {
     try {
-      const response = await profileAPI.updateProfileStatus(status);
-      if (response.data.resultCode === 0) dispatch(setProfileStatusAC(status));
-      if (response.data.resultCode === 1)
-        throw new Error(response.data.messages[0]);
+      const data = await profileAPI.updateProfileStatus(status);
+      if (data.resultCode === ResultCodesEnum.Success)
+        dispatch(setProfileStatusAC(status));
+      if (data.resultCode === ResultCodesEnum.Error)
+        throw new Error(data.messages[0]);
     } catch (error: any) {
       dispatch(displayErrorMessageTC(error.message));
     }
@@ -198,10 +199,10 @@ export const uploadPhotoTC =
   (photo: any): ThunkType =>
   async (dispatch) => {
     try {
-      const response = await profileAPI.uploadPhoto(photo);
+      const data = await profileAPI.uploadPhoto(photo);
 
-      if (response.data.resultCode === 0)
-        dispatch(uploadPhotoAC(response.data.data.photos));
+      if (data.resultCode === ResultCodesEnum.Success)
+        dispatch(uploadPhotoAC(data.data.photos));
     } catch (error) {
       console.error(error);
     }
@@ -211,9 +212,10 @@ export const updateProfileInfoTC =
   (newProfileInfo: ProfileType, userId: number): ThunkType =>
   async (dispatch) => {
     try {
-      const response = await profileAPI.updateProfileInfo(newProfileInfo);
+      const data = await profileAPI.updateProfileInfo(newProfileInfo);
 
-      if (response.data.resultCode === 0) dispatch(setUserProfileTC(userId));
+      if (data.resultCode === ResultCodesEnum.Success)
+        dispatch(setUserProfileTC(userId));
     } catch (error) {
       console.error(error);
     }
