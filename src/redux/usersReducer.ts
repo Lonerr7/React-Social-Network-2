@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { usersAPI } from '../api/api';
+import { ResultCodesEnum, usersAPI } from '../api/api';
 import { UserType } from '../types/types';
 import { updateObjectInArray } from '../utils/objectHelpers';
 import { RootStateType } from './redux-store';
@@ -172,10 +172,10 @@ export const getUsersTC =
   async (dispatch) => {
     try {
       dispatch(toggleFetchingAC(true));
-      const response = await usersAPI.getUsers(currentPage, pageLength);
+      const data = await usersAPI.getUsers(currentPage, pageLength);
       dispatch(toggleFetchingAC(false));
-      dispatch(setUsersAC(response.data.items));
-      dispatch(setTotalUsersCountAC(response.data.totalCount));
+      dispatch(setUsersAC(data.items));
+      dispatch(setTotalUsersCountAC(data.totalCount));
       dispatch(setCurrentPageAC(currentPage));
     } catch (error) {
       console.error(error);
@@ -191,8 +191,9 @@ const _followUnfollowFlow = async (
   try {
     dispatch(toggleFollowingProgressAC(true, id));
 
-    const response = await apiMethod(id);
-    if (response.data.resultCode === 0) dispatch(actionCreator(id));
+    const data = await apiMethod(id);
+    if (data.resultCode === ResultCodesEnum.Success)
+      dispatch(actionCreator(id));
     dispatch(toggleFollowingProgressAC(false, id));
   } catch (error) {
     console.error(error);
@@ -213,7 +214,7 @@ export const unfollowTC =
   async (dispatch) => {
     const apiMethod = usersAPI.unfollowUser;
     const actionCreator = unfollowAC;
-    
+
     _followUnfollowFlow(dispatch, id, apiMethod, actionCreator);
   };
 

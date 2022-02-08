@@ -1,6 +1,14 @@
 import axios from 'axios';
 import { LogInType } from '../components/Login/Login';
-import { ProfileType } from '../types/types';
+import { ProfileType, UserType } from '../types/types';
+
+export enum ResultCodesEnum {
+  Success = 0,
+  Error = 1,
+}
+export enum ResultCodeForCaptcha {
+  CaptchaIsRequired = 10,
+}
 
 const axiosInstance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -10,17 +18,31 @@ const axiosInstance = axios.create({
   },
 });
 
+type GetUsersResponseType = {
+  items: Array<UserType>;
+  totalCount: number;
+  error: string | null;
+};
+type FollowUserResponseType = {
+  resultCode: ResultCodesEnum;
+  messages: Array<String>;
+  data: any;
+};
 export const usersAPI = {
   getUsers(currentPage: number, pageLegth: number) {
-    return axiosInstance.get(`users?count=${pageLegth}&page=${currentPage}`);
+    return axiosInstance
+      .get<GetUsersResponseType>(`users?count=${pageLegth}&page=${currentPage}`)
+      .then((res) => res.data);
   },
 
   followUser(userId: number) {
-    return axiosInstance.post(`follow/${userId}`);
+    return axiosInstance
+      .post<FollowUserResponseType>(`follow/${userId}`)
+      .then((res) => res.data);
   },
 
   unfollowUser(userId: number) {
-    return axiosInstance.delete(`follow/${userId}`);
+    return axiosInstance.delete(`follow/${userId}`).then((res) => res.data);
   },
 };
 
@@ -52,14 +74,6 @@ export const profileAPI = {
   },
 };
 
-export enum ResultCodesEnum {
-  Success = 0,
-  Error = 1,
-}
-export enum ResultCodeForCaptcha {
-  CaptchaIsRequired = 10,
-}
-
 type MeResponseType = {
   data: {
     id: number;
@@ -84,7 +98,6 @@ type LogOutResponseType = {
 type GetCaptchaType = {
   url: string;
 };
-
 export const authAPI = {
   authMe() {
     return axiosInstance.get<MeResponseType>(`auth/me`).then((res) => res.data);
