@@ -1,8 +1,6 @@
 // import { ThunkAction } from "redux-thunk";
 // import { RootStateType } from "../redux/redux-store";
 
-import { ResultCodesEnum } from '../api/api';
-
 export type PostType = {
   id: number;
   postMessage: string;

@@ -65,7 +65,6 @@ type UpdateProfileInfoResponseType = {
   messages: Array<string>;
   data: any;
 };
-
 export const profileAPI = {
   getUserProfile(userId: number) {
     return axiosInstance
