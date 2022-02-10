@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 import { ResultCodesEnum, usersAPI } from '../api/api';
 import { UserType } from '../types/types';
 import { updateObjectInArray } from '../utils/objectHelpers';
-import { InferActionsTypes, RootStateType } from './redux-store';
+import { InferActionTypes, RootStateType } from './redux-store';
 
 const initialState = {
   users: [] as Array<UserType>,
@@ -15,7 +15,7 @@ const initialState = {
 };
 
 export type InitialStateType = typeof initialState;
-type ActionTypes = InferActionsTypes<typeof usersActions>;
+type ActionTypes = InferActionTypes<typeof usersActions>;
 
 const usersReducer = (
   state = initialState,

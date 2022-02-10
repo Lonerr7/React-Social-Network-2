@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { authAPI, ResultCodeForCaptcha, ResultCodesEnum } from '../api/api';
-import { InferActionsTypes, RootStateType } from './redux-store';
+import { InferActionTypes, RootStateType } from './redux-store';
 
 const initialState = {
   id: null as number | null,
@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export type InitialStateType = typeof initialState;
-type ActionTypes = InferActionsTypes<typeof authActions>;
+type ActionTypes = InferActionTypes<typeof authActions>;
 
 const authReducer = (
   state = initialState,

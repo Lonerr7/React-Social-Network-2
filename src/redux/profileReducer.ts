@@ -1,14 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 import { profileAPI, ResultCodesEnum } from '../api/api';
 import { PostType, ProfileType, PhotosType } from '../types/types';
-import { RootStateType } from './redux-store';
-
-const ADD_POST = 'ADD_POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
-const UPLOAD_PHOTO = 'UPLOAD_PHOTO';
-const DISPLAY_ERROR_MESSAGE = 'DISPLAY_ERROR_MESSAGE';
+import { InferActionTypes, RootStateType } from './redux-store';
 
 const initialState = {
   posts: [
@@ -22,13 +15,14 @@ const initialState = {
 };
 
 export type InitialStateType = typeof initialState;
+type ActionTypes = InferActionTypes<typeof profileActions>;
 
 const profileReducer = (
   state = initialState,
   action: ActionTypes
 ): InitialStateType => {
   switch (action.type) {
-    case ADD_POST:
+    case 'ADD_POST':
       const newPost = {
         id: 3,
         postMessage: action.newPost,
@@ -40,22 +34,22 @@ const profileReducer = (
         posts: [...state.posts, newPost],
         newPostText: '',
       };
-    case UPDATE_NEW_POST_TEXT:
+    case 'UPDATE_NEW_POST_TEXT':
       return {
         ...state,
         newPostText: action.newText,
       };
-    case SET_USER_PROFILE:
+    case 'SET_USER_PROFILE':
       return {
         ...state,
         userProfile: action.userProfile,
       };
-    case SET_PROFILE_STATUS:
+    case 'SET_PROFILE_STATUS':
       return {
         ...state,
         status: action.status,
       };
-    case UPLOAD_PHOTO:
+    case 'UPLOAD_PHOTO':
       return {
         ...state,
         userProfile: {
@@ -63,7 +57,7 @@ const profileReducer = (
           photos: action.photos,
         } as ProfileType,
       };
-    case DISPLAY_ERROR_MESSAGE:
+    case 'DISPLAY_ERROR_MESSAGE':
       return {
         ...state,
         errorMessage: action.errorMessage,
@@ -73,75 +67,43 @@ const profileReducer = (
   }
 };
 
-type ActionTypes =
-  | AddPostActionType
-  | UpdateNewPostTextActionType
-  | SetUserProfileActionType
-  | SetProfileStatusActionType
-  | UploadPhotoActionType
-  | DisplayErrorMessageActionType;
+export const profileActions = {
+  addPostAC: (newPost: string) =>
+    ({
+      type: 'ADD_POST',
+      newPost,
+    } as const),
 
-type AddPostActionType = {
-  type: typeof ADD_POST;
-  newPost: string;
-};
-export const addPostAC = (newPost: string): AddPostActionType => ({
-  type: ADD_POST,
-  newPost,
-});
+  updateNewPostTextAC: (newText: string) =>
+    ({
+      type: 'UPDATE_NEW_POST_TEXT',
+      newText,
+    } as const),
 
-type UpdateNewPostTextActionType = {
-  type: typeof UPDATE_NEW_POST_TEXT;
-  newText: string;
-};
-export const updateNewPostTextAC = (
-  newText: string
-): UpdateNewPostTextActionType => ({
-  type: UPDATE_NEW_POST_TEXT,
-  newText,
-});
+  setUserProfileAC: (userProfile: ProfileType) =>
+    ({
+      type: 'SET_USER_PROFILE',
+      userProfile,
+    } as const),
 
-type SetUserProfileActionType = {
-  type: typeof SET_USER_PROFILE;
-  userProfile: ProfileType;
-};
-export const setUserProfileAC = (
-  userProfile: ProfileType
-): SetUserProfileActionType => ({
-  type: SET_USER_PROFILE,
-  userProfile,
-});
+  setProfileStatusAC: (status: string) =>
+    ({
+      type: 'SET_PROFILE_STATUS',
+      status,
+    } as const),
 
-type SetProfileStatusActionType = {
-  type: typeof SET_PROFILE_STATUS;
-  status: string;
-};
-export const setProfileStatusAC = (
-  status: string
-): SetProfileStatusActionType => ({
-  type: SET_PROFILE_STATUS,
-  status,
-});
+  uploadPhotoAC: (photos: PhotosType) =>
+    ({
+      type: 'UPLOAD_PHOTO',
+      photos,
+    } as const),
 
-type UploadPhotoActionType = {
-  type: typeof UPLOAD_PHOTO;
-  photos: PhotosType;
+  displayErrorMessageAC: (errorMessage: string) =>
+    ({
+      type: 'DISPLAY_ERROR_MESSAGE',
+      errorMessage,
+    } as const),
 };
-const uploadPhotoAC = (photos: PhotosType): UploadPhotoActionType => ({
-  type: UPLOAD_PHOTO,
-  photos,
-});
-
-type DisplayErrorMessageActionType = {
-  type: typeof DISPLAY_ERROR_MESSAGE;
-  errorMessage: string;
-};
-const displayErrorMessageAC = (
-  errorMessage: string
-): DisplayErrorMessageActionType => ({
-  type: DISPLAY_ERROR_MESSAGE,
-  errorMessage,
-});
 
 type ThunkType = ThunkAction<
   Promise<void>,
@@ -155,7 +117,7 @@ export const setUserProfileTC =
   async (dispatch) => {
     try {
       const data = await profileAPI.getUserProfile(userId);
-      dispatch(setUserProfileAC(data));
+      dispatch(profileActions.setUserProfileAC(data));
     } catch (error) {
       console.error(error);
     }
@@ -166,7 +128,7 @@ export const getProfileStatusTC =
   async (dispatch) => {
     try {
       const data = await profileAPI.getProfileStatus(userId);
-      dispatch(setProfileStatusAC(data));
+      dispatch(profileActions.setProfileStatusAC(data));
     } catch (error) {
       console.error(error);
     }
@@ -175,9 +137,9 @@ export const getProfileStatusTC =
 export const displayErrorMessageTC =
   (errorMessage: string): ThunkType =>
   async (dispatch) => {
-    dispatch(displayErrorMessageAC(errorMessage));
+    dispatch(profileActions.displayErrorMessageAC(errorMessage));
     setTimeout(() => {
-      dispatch(displayErrorMessageAC(''));
+      dispatch(profileActions.displayErrorMessageAC(''));
     }, 6000);
   };
 
@@ -187,7 +149,7 @@ export const updateProfileStatusTC =
     try {
       const data = await profileAPI.updateProfileStatus(status);
       if (data.resultCode === ResultCodesEnum.Success)
-        dispatch(setProfileStatusAC(status));
+        dispatch(profileActions.setProfileStatusAC(status));
       if (data.resultCode === ResultCodesEnum.Error)
         throw new Error(data.messages[0]);
     } catch (error: any) {
@@ -202,7 +164,7 @@ export const uploadPhotoTC =
       const data = await profileAPI.uploadPhoto(photo);
 
       if (data.resultCode === ResultCodesEnum.Success)
-        dispatch(uploadPhotoAC(data.data.photos));
+        dispatch(profileActions.uploadPhotoAC(data.data.photos));
     } catch (error) {
       console.error(error);
     }

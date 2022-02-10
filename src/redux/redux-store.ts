@@ -21,7 +21,7 @@ type RootReducerType = typeof rootReducer;
 export type RootStateType = ReturnType<RootReducerType>;
 
 type ActionsTypes = { [key: string]: (...args: any[]) => any };
-export type InferActionsTypes<T extends ActionsTypes> = ReturnType<
+export type InferActionTypes<T extends ActionsTypes> = ReturnType<
   T extends { [key: string]: infer U } ? U : never
 >;
 
